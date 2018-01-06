@@ -1,0 +1,310 @@
+﻿@using FalMedia.Models
+@model IEnumerable<FalMedia.Models.Post>
+
+@{
+    ViewBag.Title = Resources.Posts;
+    ViewBag.ActiveTitle = Resources.AllPosts;
+    ViewBag.LinkName = Resources.AddNew;
+    ViewBag.Action = "NewPost";
+    ViewBag.Controller = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+    ViewBag.Controller2 = Resources.Posts;
+}
+
+<div class="row">
+<div class="col s4">
+    <ul class="tabs">
+        <li class="tab col s3">
+            <a href="#published" class="active">
+                @Resources.Published
+                <span class="badge">@Model.Count(post => post.Status.Equals(PostStatus.Published))</span>
+            </a>
+        </li>
+        <li class="tab col s3">
+            <a href="#pending">
+                @Resources.Pending
+                <span class="badge">@Model.Count(post => post.Status.Equals(PostStatus.Pending))</span>
+            </a>
+        </li>
+        <li class="tab col s3">
+            <a href="#draft">
+                @Resources.Draft
+                <span class="badge">@Model.Count(post => post.Status.Equals(PostStatus.Draft))</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="published" class="col s12">
+    <div class="row">
+        <div class="col s12">
+            <div class="card material-table">
+                <div class="table-header">
+                    <span class="table-title">@Resources.AllPosts</span>
+                    <div class="actions">
+                        <a href="#" class="search-toggle waves-effect btn-flat nopadding">
+                            <i class="material-icons">search</i>
+                        </a>
+                    </div>
+                </div>
+                <table class="datatable">
+                    <thead>
+                    <tr>
+                        <th>@Resources.Title</th>
+                        <th>@Resources.CreatedBy</th>
+                        <th>@Resources.Categories</th>
+                        <th>@Resources.Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var item in Model.Where(post => post.Status.Equals(PostStatus.Published)))
+                    {
+                        <tr>
+                            <td>
+                                @if (Culture.Equals("ar"))
+                                {
+                                    var postTitle = item.TitleAr;
+                                    <span class="block">
+                                                @(postTitle == null ? Html.ActionLink(" ", "EditPost", new {id = item.Id}) : Html.ActionLink(postTitle, "EditPost", new {id = item.Id}))
+
+                                            </span>
+                                    <div class="linkspost">
+                                        <span>
+                                                    @Html.ActionLink("Edit", "EditPost", new {id = item.Id}) <span>|</span>
+                                                    <a href="#" class="js-delete-post" data-post-id="@item.Id">
+                                                        Delete
+                                                    </a>
+
+                                                </span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    var postTitle = item.Title;
+                                    <span class="block">
+                                                @(postTitle == null ? Html.ActionLink(" ", "EditPost", new {id = item.Id}) : Html.ActionLink(postTitle, "EditPost", new {id = item.Id}))
+                                            </span>
+                                    <div class="linkspost">
+                                        <span>
+                                                    @Html.ActionLink("Edit", "EditPost", new {id = item.Id}) <span>|</span>
+                                                    <a href="#" class="js-delete-post" data-post-id="@item.Id">
+                                                        Delete
+                                                    </a>
+
+                                                </span>
+                                    </div>
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreatedBy)
+                            </td>
+                            <td></td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreatedDate)
+                            </td>
+                        </tr>
+                    }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div id="pending" class="col s12">
+    <div class="row">
+        <div class="col s12">
+            <div class="card material-table">
+                <div class="table-header">
+                    <span class="table-title">@Resources.Pending @Resources.Posts</span>
+                    <div class="actions">
+                        <a href="#" class="search-toggle waves-effect btn-flat nopadding">
+                            <i class="material-icons">search</i>
+                        </a>
+                    </div>
+                </div>
+                <table class="datatable">
+                    <thead>
+                    <tr>
+                        <th>@Resources.Title</th>
+                        <th>@Resources.CreatedBy</th>
+                        <th>@Resources.Categories</th>
+                        <th>@Resources.Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var item in Model.Where(post => post.Status.Equals(PostStatus.Pending)))
+                    {
+                        <tr>
+                            <td>
+                                @if (Culture.Equals("ar"))
+                                {
+                                    var postTitle = item.TitleAr;
+                                    <span class="block">
+                                                @Html.ActionLink(postTitle, "EditPost", new {id = item.Id})
+                                            </span>
+                                    <div class="linkspost">
+                                        <span>
+                                                    @Html.ActionLink("Edit", "EditPost", new {id = item.Id}) <span>|</span>
+                                                    <a href="#" class="js-delete-post" data-post-id="@item.Id">
+                                                        Delete
+                                                    </a>
+
+                                                </span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    var postTitle = item.Title;
+                                    <span class="block">
+                                                @Html.ActionLink(postTitle, "EditPost", new {id = item.Id})
+                                            </span>
+                                    <div class="linkspost">
+                                        <span>
+                                                    @Html.ActionLink("Edit", "EditPost", new {id = item.Id}) <span>|</span>
+                                                    <a href="#" class="js-delete-post" data-post-id="@item.Id">
+                                                        Delete
+                                                    </a>
+
+                                                </span>
+                                    </div>
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreatedBy)
+                            </td>
+                            <td></td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreatedDate)
+                            </td>
+                        </tr>
+                    }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="draft" class="col s12">
+    <div class="row">
+        <div class="col s12">
+            <div class="card material-table">
+                <div class="table-header">
+                    <span class="table-title">@Resources.Draft @Resources.Posts</span>
+                    <div class="actions">
+                        <a href="#" class="search-toggle waves-effect btn-flat nopadding">
+                            <i class="material-icons">search</i>
+                        </a>
+                    </div>
+                </div>
+                <table class="datatable">
+                    <thead>
+                    <tr>
+                        <th>@Resources.Title</th>
+                        <th>@Resources.CreatedBy</th>
+                        <th>@Resources.Categories</th>
+                        <th>@Resources.Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var item in Model.Where(post => post.Status.Equals(PostStatus.Draft)))
+                    {
+                        <tr>
+                            <td>
+                                @if (Culture.Equals("ar"))
+                                {
+                                    var postTitle = item.TitleAr;
+                                    <span class="block">
+                                                @Html.ActionLink(postTitle, "EditPost", new {id = item.Id})
+                                            </span>
+                                    <div class="linkspost">
+                                        <span>
+                                                    @Html.ActionLink("Edit", "EditPost", new {id = item.Id}) <span>|</span>
+                                                    <a href="#" class="js-delete-post" data-post-id="@item.Id">
+                                                        Delete
+                                                    </a>
+
+                                                </span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    var postTitle = item.Title;
+                                    <span class="block">
+                                                @Html.ActionLink(postTitle, "EditPost", new {id = item.Id})
+                                            </span>
+                                    <div class="linkspost">
+                                        <span>
+                                                    @Html.ActionLink("Edit", "EditPost", new {id = item.Id}) <span>|</span>
+                                                    <a href="#" class="js-delete-post" data-post-id="@item.Id">
+                                                        Delete
+                                                    </a>
+
+                                                </span>
+                                    </div>
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreatedBy)
+                            </td>
+                            <td></td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreatedDate)
+                            </td>
+                        </tr>
+                    }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/admin/DT.js"></script>
+    <script src="~/Scripts/admin/admin.init.js"></script>
+    <script>
+        $(document)
+            .ready(function() {
+                $(".js-delete-post")
+                    .click(function(e) {
+                        var link = $(e.target);
+
+                        swal({
+                                title: "Are you sure?",
+                                text: "You will not be able to recover this post!",
+                                type: "warning",
+                                showCancelButton: true,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Yes, delete it!",
+                                cancelButtonText: "No, cancel plx!",
+                                closeOnConfirm: false,
+                                closeOnCancel: false
+                            },
+                            function(isConfirm) {
+                                if (isConfirm) {
+                                    $.ajax({
+                                            url: "/Admin/Posts/Delete/" + link.attr("data-post-id"),
+                                            method: "POST"
+                                        })
+                                        .done(function() {
+                                            swal("Deleted!", "Post has been deleted.", "success");
+                                            link.parents("tr")
+                                                .fadeOut(function() {
+                                                    $(this).remove();
+                                                });
+                                        })
+                                        .fail(function() {
+                                            alert("Something failed!");
+                                        });
+                                } else {
+                                    swal("Cancelled", "Post is safe :)", "error");
+                                }
+                            });
+                    });
+            });
+    </script>
+
+}

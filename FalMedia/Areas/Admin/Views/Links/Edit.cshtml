@@ -1,0 +1,58 @@
+﻿@model FalMedia.Models.Link
+
+@{
+    ViewBag.Title = Resources.AddNew;
+    ViewBag.ActiveTitle = "Edit Link";
+    ViewBag.LinkName = "Add Link";
+    ViewBag.Action = "Create";
+    ViewBag.Controller = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+    ViewBag.Controller2 = "links";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.LinkId)
+    <div id="basic-form" class="section">
+        <div class="row">
+            <div class="col s12 m12 l6">
+                <div class="card-panel">
+                    <h4 class="header2">@ViewBag.ActiveTitle</h4>
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    @Html.TextBoxFor(model => model.LinkName, new {@readonly = ""})
+                                    <label for="LinkName">@Resources.Name</label>
+                                    @Html.ValidationMessageFor(model => model.LinkName)
+                                </div>
+                                <div class="input-field col s12">
+                                    @Html.TextBoxFor(model => model.LinkUrl, new {required = "required"})
+                                    <label for="LinkUrl">@Resources.LinkUrl</label>
+                                    @Html.ValidationMessageFor(model => model.LinkUrl)
+                                </div>
+                                <div class="input-field col s12">
+                                    @Html.EnumDropDownListFor(model => model.LinkTarget)
+                                </div>
+                                <div class="input-field col s12">
+                                    @Html.TextBoxFor(model => model.LinkDescription)
+                                    <label for="LinkDescription">@Resources.Description</label>
+                                    @Html.ValidationMessageFor(model => model.LinkDescription)
+                                </div>
+                            </div>
+                            <div class="input-field col s12" style="margin-bottom: 20px;">
+                                <input type="submit" value="@Resources.Save" class="btn btn-block green right"/>
+                                @Html.ActionLink("Back", "Index", null, new {@class = "btn btn-block blue"})
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

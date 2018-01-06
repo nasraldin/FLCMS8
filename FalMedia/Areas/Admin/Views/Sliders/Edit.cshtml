@@ -1,0 +1,50 @@
+﻿@model FalMedia.Models.Slider
+
+@{
+    ViewBag.Title = Resources.Slider;
+    ViewBag.ActiveTitle = Resources.Slider;
+    ViewBag.LinkName = Resources.AddNew;
+    ViewBag.Action = "Create";
+    ViewBag.Controller = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+    ViewBag.Controller2 = Resources.Slider;
+}
+@section Styles{
+    <style>
+        .select-wrapper { width: 90px; }
+    </style>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+    <div id="basic-form" class="section">
+        <div class="row">
+            <div class="col s12 m6 l6">
+                <div class="card-panel">
+                    <h4 class="header2">@Resources.Edit</h4>
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="row">
+                                <div class="input-field col s4">
+                                    @Html.TextBoxFor(model => model.SliderName, new {required = "required"})
+                                    <label for="Name">Slider Name</label>
+                                    @Html.ValidationMessageFor(model => model.SliderName)
+                                </div>
+                            </div>
+                            <div class="input-field col s12" style="margin-bottom: 20px;">
+                                <input type="submit" value="@Resources.Save" class="btn btn-block green right"/>
+                                @Html.ActionLink("Back", "Index", null, new {@class = "btn btn-block blue"})
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

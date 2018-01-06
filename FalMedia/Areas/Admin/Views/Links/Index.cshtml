@@ -1,0 +1,64 @@
+﻿@model IEnumerable<FalMedia.Models.Link>
+
+@{
+    ViewBag.Title = Resources.SocialMedia;
+    ViewBag.ActiveTitle = "All Links";
+    ViewBag.LinkName = Resources.AddNew;
+    ViewBag.Action = "Create";
+    ViewBag.Controller = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+    ViewBag.Controller2 = "Links";
+}
+
+<div class="row">
+    <div class="col s12">
+        <div class="card material-table">
+            <div class="table-header">
+                <span class="table-title">Links Url</span>
+                <div class="actions">
+                    <a href="#" class="search-toggle waves-effect btn-flat nopadding">
+                        <i class="material-icons">search</i>
+                    </a>
+                </div>
+            </div>
+            <table class="datatable">
+                <thead>
+                <tr>
+                    <th>@Resources.LinkName</th>
+                    <th>@Resources.LinkUrl</th>
+                    <th>@Resources.LinkTarget</th>
+                    <th>@Html.DisplayNameFor(model => model.LinkDescription)</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LinkName)
+                        </td>
+                        <td>
+                            <a href="@item.LinkUrl" target="_blank">@item.LinkUrl</a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LinkTarget)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LinkDescription)
+                        </td>
+                        <td style="color: #fff;">
+                            @Html.ActionLink(" ", "Edit", new {id = item.LinkId}, new {@class = "mdi-editor-border-color btn"})
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/admin/DT.js"></script>
+    <script src="~/Scripts/admin/admin.init.js"></script>
+}

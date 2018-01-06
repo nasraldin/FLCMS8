@@ -1,0 +1,230 @@
+﻿@using FalMedia.Areas.Admin.ViewModel
+@model FalMedia.Models.Post
+
+@{
+    ViewBag.Title = Resources.AddNewPost;
+    Layout = "../Shared/_LayoutEdit.cshtml";
+}
+
+@using (Html.BeginForm("NewPost", "Posts", FormMethod.Post, new {enctype = "multipart/form-data", onsubmit = "return upload(this);"}))
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col s4">
+            <h3 class="posthader">@Resources.AddNewPost</h3>
+            <span>
+                @Html.ValidationSummary(true)
+            </span>
+            <ul class="tabs">
+                <li class="tab col s3">
+                    <a href="#published" class="active">
+                        English Content
+                    </a>
+                </li>
+                <li class="tab col s3">
+                    <a href="#cd">
+                        Arabic Content
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div id="published" class="col s9">
+            <div class="row">
+                <div class="col s12">
+                    <div class="card">
+                        <div class="container">
+                            <div class="input-field col s12">
+                                @Html.EditorFor(model => model.Title)
+                                <label for="Title">Title</label>
+                            </div>
+                            <div class="input-field col s12">
+                                @Html.EditorFor(model => model.ShortDescription)
+                                <label for="ShortDescription">Short Description</label>
+                            </div>
+                            <div class="input-field col s12" style="margin-bottom: 20px;">
+                                @Html.TextAreaFor(model => model.Content, new {@class = "materialize-textarea"})
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="cd" class="col s9">
+            <div class="row">
+                <div class="col s12">
+                    <div class="card">
+                        <div class="container">
+                            <div class="input-field col s12">
+                                @Html.EditorFor(model => model.TitleAr)
+                                <label for="TitleAr">Title Arabic</label>
+                            </div>
+                            <div class="input-field col s12">
+                                @Html.EditorFor(model => model.ShortDescriptionAr)
+                                <label for="ShortDescriptionAr">Short Description</label>
+                            </div>
+                            <div class="input-field col s12" style="margin-bottom: 20px;">
+                                @Html.TextAreaFor(model => model.ContentAr, new {@class = "materialize-textarea"})
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col s3">
+            <ul class="collapsible" data-collapsible="expandable">
+                <li>
+                    <div class="collapsible-header active">
+                        <i class="material-icons">filter_drama</i>
+                        @Resources.Published
+                    </div>
+                    <div class="collapsible-body">
+                        <div class="container">
+                            <div class="row">
+                                <span class="col s6 labs">@Resources.Status</span>
+                                @Html.EnumDropDownListFor(model => model.Status, new {@class = "col s6"})
+                            </div>
+
+                            <div class="row">
+                                <input type="submit" value="@Resources.Published" class="btn right btn-mrg"/>
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="collapsible-header active">
+                        <i class="material-icons">comment</i>@Resources.Categories
+                    </div>
+                    <div class="collapsible-body">
+                        <div class="container" style="padding: 20px;">
+                            <div class="catgr">
+                                @{
+                                    List<AssignedCategoryData> categories = ViewBag.Category;
+                                    if (!categories.Any())
+                                    {
+                                        <p style="margin: 20px; padding: 20px;">
+                                            No Categories found.<br/>
+                                            @Html.ActionLink("Add New Category", "Index", "Categories")
+                                        </p>
+                                    }
+                                    else
+                                    {
+                                        foreach (var category in categories)
+                                        {
+                                            <span>
+                                                <input type="checkbox" name="selectedCategories" id="@category.Name" value="@category.Id"
+                                                       @(Html.Raw(category.Assigned ? "checked=\"checked\"" : ""))>
+                                                <label for="@category.Name">@category.Name</label>
+                                            </span>
+                                        }
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="collapsible-header active">
+                        <i class="material-icons">picture_in_picture</i>
+                        @Resources.Thumbnail
+                    </div>
+                    <div class="collapsible-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="row" style="margin-top: 10px; text-align: center;">
+                                    <img src="~/Content/img/No_Image_Available.png" alt="Upload User Image" id="post-thumbnail" class="responsive-img" width="180">
+                                </div>
+                                <div class="col s8" style="float: none; margin: 0 auto;">
+                                    <div class="file-field input-field">
+                                        <div class="btn">
+                                            <span>File</span>
+                                            <input type="file" id="thumbnail" name="thumbnail" onchange="readURL(this);">
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <!-- Include JS file. -->
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script>
+        $('#Content, #ContentAr').trigger('autoresize');
+        tinymce.init({
+            selector: '#Content, #ContentAr',
+            height: 500,
+            plugins: [
+                "advlist autolink lists link image imagetools charmap print preview anchor",
+                "searchreplace visualblocks code fullscreen", "insertdatetime media table contextmenu paste",
+                "textcolor colorpicker"
+            ],
+            toolbar:
+                "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | forecolor backcolor",
+            image_title: true,
+            automatic_uploads: false,
+            file_picker_types: 'image',
+            images_upload_url: '/Admin/Upload/FileUpload',
+            images_upload_base_path: "/../uploads",
+            imagetools_toolbar: "rotateleft rotateright | flipv fliph | editimage imageoptions",
+            file_picker_callback: function(cb, value, meta) {
+                var input = document.createElement('input');
+                input.setAttribute('type', 'file');
+                input.setAttribute('accept', 'image/*');
+                input.onchange = function() {
+                    var file = this.files[0];
+                    var id = 'blobid' + (new Date()).getTime();
+                    var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+                    var blobInfo = blobCache.create(id, file);
+                    blobCache.add(blobInfo);
+                    cb(blobInfo.blobUri(), { title: file.name });
+                };
+                input.click();
+            }
+        });
+
+        function upload(form) {
+            tinymce.activeEditor.uploadImages(function() {
+                form.submit();
+            });
+            return false;
+        }
+
+    </script>
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#post-thumbnail')
+                        .attr('src', e.target.result)
+                        .height(180)
+                        .removeClass('hidden');
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function readimgURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#post-thumbnail')
+                        .attr('src', e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+}

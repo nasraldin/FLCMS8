@@ -1,0 +1,129 @@
+﻿@model FalMedia.Areas.Admin.ViewModel.EditUserViewModel
+
+@{
+    ViewBag.Title = Resources.AddNewPost;
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutEdit.cshtml";
+}
+
+@using (Html.BeginForm("Edit", "Users", FormMethod.Post, new {enctype = "multipart/form-data"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+    <div class="row">
+        <div class="col s8" style="float: none; margin: 0 auto;">
+            <h3 class="posthader">@Resources.EditUser</h3>
+            <div class="card">
+                <div class="container">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <div class="row" style="text-align: center">
+                                @if (!Model.Thumbnail.IsEmpty())
+                                {
+                                    <img src="@Url.Content("~/uploads/profile/" + Model.Thumbnail)" alt="User Profile Image" id="profile-user" class="circle responsive-img profile-user">
+                                }
+                                else
+                                {
+                                    <img src="~/Content/img/No_Image_Available.png" alt="User Profile Image" id="profile-user" class="circle responsive-img profile-user">
+                                }
+
+                            </div>
+                            <div class="col s3" style="float: none; margin: 0 auto;">
+                                <div class="file-field input-field">
+                                    <div class="btn">
+                                        <span>File</span>
+                                        <input type="file" id="thumbnail" name="thumbnail" onchange="readURL(this);">
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text" value="@Model.Thumbnail">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="input-field col s6">
+                            @Html.LabelFor(model => model.UserName)
+                            @Html.TextBoxFor(model => model.UserName, new {required = "required"})
+                            @Html.ValidationMessageFor(model => model.UserName)
+
+                        </div>
+                        <div class="input-field col s6">
+                            @Html.LabelFor(model => model.DisplayName)
+                            @Html.TextBoxFor(model => model.DisplayName, new {required = "required"})
+                            @Html.ValidationMessageFor(model => model.DisplayName)
+                        </div>
+                        <div class="input-field col s12">
+                            @Html.LabelFor(model => model.Email)
+                            @Html.TextBoxFor(model => model.Email, new {required = "required"})
+                            @Html.ValidationMessageFor(model => model.Email)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            @Html.LabelFor(model => model.AboutMe)
+                            @Html.TextBoxFor(model => model.AboutMe)
+                            @Html.ValidationMessageFor(model => model.AboutMe)
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <fieldset class="fieldset">
+                                <legend>@Resources.Groups</legend>
+                                @{
+                                    var s = Model.GroupsList;
+                                }
+                                @if (!s.Any())
+                                {
+                                    <span>No Groups found.</span>
+                                }
+                                @foreach (var item in Model.GroupsList)
+                                {
+                                    <div class="switch">
+                                        @item.Text :
+                                        <label style="position: inherit;">
+                                            <input type="checkbox" name="selectedGroups" value="@item.Value" checked="@item.Selected">
+                                            <span class="lever"></span> On
+                                        </label>
+                                    </div>
+                                    <br/>
+                                }
+                            </fieldset>
+
+                        </div>
+                    </div>
+                    <div class="input-field col s12" style="margin-bottom: 20px;">
+                        <input type="submit" value="@Resources.Update" class="btn btn-block right"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section Scripts {
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#profile-user')
+                        .attr('src', e.target.result)
+                        .height(200)
+                        .removeClass('hidden');
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function readimgURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#profile-user')
+                        .attr('src', e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+}

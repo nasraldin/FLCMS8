@@ -1,0 +1,99 @@
+﻿@model IEnumerable<FalMedia.Models.ProjectType>
+
+@{
+    ViewBag.Title = Resources.Categories;
+    ViewBag.ActiveTitle = Resources.AllCategories;
+    ViewBag.LinkName = Resources.AddNew;
+    ViewBag.Action = "NewType";
+    ViewBag.Controller = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+    ViewBag.Controller2 = Resources.Categories;
+}
+
+<div class="row">
+    <div class="col s8">
+        <div class="card material-table">
+            <div class="table-header">
+                <span class="table-title">@Resources.AllCategories</span>
+                <div class="actions">
+                    <a href="#" class="search-toggle waves-effect btn-flat nopadding">
+                        <i class="material-icons">search</i>
+                    </a>
+                </div>
+            </div>
+            <table class="datatable">
+                <thead>
+                <tr>
+                    <th>@Resources.Id</th>
+                    <th>@Resources.Name</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td style="color: #fff;">
+                            @Html.ActionLink(" ", "EditCat", new {id = item.Id}, new {@class = "mdi-editor-border-color btn"})
+                            <a href="#" class="js-delete-cat mdi-action-delete red btn" data-cat-id="@item.Id"></a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/admin/DT.js"></script>
+    <script src="~/Scripts/admin/admin.init.js"></script>
+    <script>
+        $(document)
+            .ready(function() {
+                $(".js-delete-cat")
+                    .click(function(e) {
+                        var link = $(e.target);
+
+                        swal({
+                                title: "Are you sure?",
+                                text: "You will not be able to recover this Category!",
+                                type: "warning",
+                                showCancelButton: true,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Yes, delete it!",
+                                cancelButtonText: "No, cancel plx!",
+                                closeOnConfirm: false,
+                                closeOnCancel: false
+                            },
+                            function(isConfirm) {
+                                if (isConfirm) {
+                                    $.ajax({
+                                            url: "/Admin/Projects/DeleteCat/" + link.attr("data-cat-id"),
+                                            method: "POST"
+                                        })
+                                        .done(function() {
+                                            swal("Deleted!", "Category has been deleted.", "success");
+                                            link.parents("tr")
+                                                .fadeOut(function() {
+                                                    $(this).remove();
+                                                });
+                                        })
+                                        .fail(function() {
+                                            alert("Something failed!");
+                                        });
+                                } else {
+                                    swal("Cancelled", "Category is safe :)", "error");
+                                }
+                            });
+                    });
+            });
+    </script>
+
+}

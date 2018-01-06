@@ -1,0 +1,75 @@
+﻿@model FalMedia.Models.Category
+
+@{
+    ViewBag.Title = Resources.AddNewCategory;
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutEdit.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col s4">
+            <h3 class="posthader">@Resources.AddNewCategory</h3>
+            <span>
+                @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+            </span>
+            <ul class="tabs">
+                <li class="tab col s3">
+                    <a href="#catEn" class="active">
+                        English Content
+                    </a>
+                </li>
+                <li class="tab col s3">
+                    <a href="#catAr">
+                        Arabic Content
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div id="catEn" class="col s9">
+            <div class="row">
+                <div class="col s6">
+                    <div class="">
+                        <div class="container">
+                            <div class="input-field col s12">
+                                @Html.EditorFor(model => model.Name)
+                                <label for="Name">Title</label>
+                            </div>
+                            <div class="input-field col s12">
+                                @Html.EditorFor(model => model.Description)
+                                <label for="Description">Description</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="catAr" class="col s9">
+            <div class="row">
+                <div class="col s6">
+                    <div class="">
+                        <div class="container">
+                            <div class="input-field col s12">
+                                @Html.EditorFor(model => model.NameAr)
+                                <label for="NameAr">Title Arabic</label>
+                            </div>
+                            <div class="input-field col s12">
+                                @Html.EditorFor(model => model.DescriptionAr)
+                                <label for="DescriptionAr">@Resources.Description</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s4">
+            <input type="submit" value="@Resources.Save" class="btn btn-block right"/>
+        </div>
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

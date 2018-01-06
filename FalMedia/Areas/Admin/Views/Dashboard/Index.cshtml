@@ -1,0 +1,98 @@
+﻿@using System.Threading
+@{
+    ViewBag.Title = "Admin Dashboard";
+    var culture = Thread.CurrentThread.CurrentUICulture.Name.ToLowerInvariant();
+    ViewBag.Controller = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+}
+
+@helper Selected(string c, string culture)
+{
+    if (c == culture)
+    {
+        @:checked="checked"
+    }
+}
+
+<!--card stats start-->
+<div id="card-stats">
+    <div class="row">
+        <div class="col s12 m6 l3">
+            <div class="card">
+                <div class="card-content  green white-text">
+                    <p class="card-stats-title">
+                        <i class="mdi-action-language"></i>
+                        @Resources.ChooseYourLanguage
+                    </p>
+                    @using (Html.BeginForm("SetCulture", "Dashboard"))
+                    {
+                        <div class="card-stats-number">
+                            <p>
+                                <input class="with-gap" name="culture" type="radio" id="en-us" value="en-us" @Selected("en-us", culture)/>
+                                <label for="en-us" class="white-text">English</label>
+                            </p>
+                            <p>
+                                <input class="with-gap" name="culture" type="radio" id="ar" value="ar" @Selected("ar", culture)/>
+                                <label for="ar" class="white-text">العربية</label>
+                            </p>
+                        </div>
+                    }
+                </div>
+                <div class="card-action  green darken-2">
+                    <div id="clients-bar"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m6 l3">
+            <div class="card">
+                <div class="card-content white-text bgfalb">
+                    <p class="card-stats-title">
+                        <i class="mdi-action-verified-user"></i>
+                        @Resources.AllUsers
+                    </p>
+                    <h4 class="card-stats-number">
+                        @ViewBag.Allusers
+                    </h4>
+                    <p class="card-stats-compare">
+                        <i class="mdi-hardware-keyboard-arrow-right"></i>
+                        <span class="purple-text text-lighten-5">
+                            <a href="@("/Admin/Users")" class="white-text">Users</a>
+                        </span>
+                    </p>
+                </div>
+                <div class="card-action bgfalb darken-2">
+                    <div id="sales-compositebar"></div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m6 l3">
+            <div class="card">
+                <div class="card-content blue-grey white-text" style="padding: 42px 0;">
+                    <a href="@("/Admin/Posts/NewPost")">
+                        <p class="white-text">
+                            <i class="mdi-editor-mode-edit"></i>
+                            @Resources.AddNewPost
+                        </p>
+                    </a>
+                </div>
+                <div class="card-action blue-grey darken-2">
+                    <div id="profit-tristate"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--card stats end-->
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        (function($) {
+            $("input[type='radio']")
+                .click(function() {
+                    $(this).parents("form").submit(); // post form
+                });
+
+        })(jQuery);
+    </script>
+}

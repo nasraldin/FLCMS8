@@ -1,0 +1,171 @@
+﻿<!-- START LEFT SIDEBAR NAV-->
+<aside id="left-sidebar-nav">
+    <ul id="slide-out" class="side-nav fixed leftside-navigation" style="height: auto">
+        <li class="user-details blue darken-2">
+            <div class="row">
+                <div class="col col s4 m4 l4">
+                    @{
+                        var th = Session["thumbnail"];
+                        if (th != null)
+                        {
+                            <img src="@Url.Content("~/uploads/profile/" + th)" alt="User Profile Image" class="circle responsive-img valign profile-image">
+                        }
+                        else
+                        {
+                            <img src="~/Content/img/No_Image_Available.png" alt="User Profile Image" class="circle responsive-img valign profile-image">
+                        }
+                    }
+                </div>
+                <div class="col col s8 m8 l8">
+                    <ul id="profile-dropdown" class="dropdown-content">
+                        <li>
+                            <a href="@("/Admin/Profile")">
+                                <i class="mdi-action-face-unlock"></i> @Resources.Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@("/Admin/Settings")">
+                                <i class="mdi-action-settings"></i> @Resources.Settings
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="@("/Admin/Users/ChangePassword")">
+                                Password
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            @using (Html.BeginForm("LogOut", "Auth", FormMethod.Post, new {id = "logoutForm"}))
+                            {
+                                @Html.AntiForgeryToken()
+                                <a href="javascript:document.getElementById('logoutForm').submit()">
+                                    <i class="mdi-hardware-keyboard-tab"></i> @Resources.Logout
+                                </a>
+                            }
+                        </li>
+                    </ul>
+                    <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#" data-activates="profile-dropdown">
+                        @User.Identity.Name<i class="mdi-navigation-arrow-drop-down right"></i>
+                    </a>
+                    <p class="user-roal">
+
+                        @{
+                            var po = Session["position"];
+                            if (po != null)
+                            {
+                                @po.ToString()
+                            }
+                        }
+                    </p>
+                </div>
+            </div>
+        </li>
+        <li class="bold">
+            <a href="@("/admin")" class="waves-effect waves-cyan">
+                <i class="mdi-action-dashboard"></i>
+                @Resources.Dashboard
+            </a>
+        </li>
+        @if (User.IsInRole("Admin"))
+        {
+            <li class="no-padding">
+                <ul class="collapsible collapsible-accordion">
+                    <li class="bold">
+                        <a class="collapsible-header  waves-effect waves-cyan">
+                            <i class="mdi-editor-mode-edit"></i> @Resources.Posts
+                        </a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li>
+                                    @Html.ActionLink(Resources.AllPosts, "Index", "Posts")
+                                </li>
+                                <li>
+                                    @Html.ActionLink(Resources.AddNew, "NewPost", "Posts")
+                                </li>
+                                <li>
+                                    @Html.ActionLink(Resources.Categories, "Index", "Categories")
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li class="no-padding">
+                <ul class="collapsible collapsible-accordion">
+                    <li class="bold">
+                        <a class="collapsible-header  waves-effect waves-cyan">
+                            <i class="fa fa-users"></i> @Resources.Users
+                        </a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li>
+                                    @Html.ActionLink(Resources.AllUsers, "Index", "Users")
+                                </li>
+                                <li>
+                                    @Html.ActionLink(Resources.YourProfile, "Index", "Profile")
+                                </li>
+                                <li>
+                                    @Html.ActionLink(Resources.Permissions, "Index", "Roles")
+                                </li>
+                                <li>
+                                    @Html.ActionLink(Resources.Groups, "Index", "Groups")
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li class="bold">
+                <a href="@("/Admin/Settings")">
+                    <i class="mdi-action-settings"></i> @Resources.Settings
+                </a>
+            </li>
+            <li class="bold">
+                <a href="@("/Admin/Partners")">
+                    <i class="mdi-content-add"></i> @Resources.Partners
+                </a>
+            </li>
+            <li class="no-padding">
+                <ul class="collapsible collapsible-accordion">
+                    <li class="bold">
+                        <a class="collapsible-header  waves-effect waves-cyan">
+                            <i class="mdi-action-view-module"></i> @Resources.Projects
+                        </a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li>
+                                    @Html.ActionLink(Resources.Projects, "Index", "Projects")
+                                </li>
+                                <li>
+                                    @Html.ActionLink(Resources.AddNew, "NewProject", "Projects")
+                                </li>
+                                <li>
+                                    @Html.ActionLink(Resources.Categories, "PTypes", "Projects")
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li class="bold">
+                <a href="@("/Admin/Sliders")">
+                    <i class="mdi-image-collections"></i> @Resources.Slider
+                </a>
+            </li>
+            <li class="bold">
+                <a href="@("/Admin/ContactUs")" class="waves-effect waves-cyan">
+                    <i class="mdi-action-markunread-mailbox"></i>
+                    @Resources.ContactArrived
+                </a>
+            </li>
+            <li class="bold">
+                <a href="@("/Admin/Links")" class="waves-effect waves-cyan">
+                    <i class="mdi-action-assignment-ind"></i>
+                    @Resources.SocialMedia
+                </a>
+            </li>
+        }
+    </ul>
+</aside>
+<!-- END LEFT SIDEBAR NAV-->

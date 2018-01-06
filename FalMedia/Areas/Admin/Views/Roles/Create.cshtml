@@ -1,0 +1,50 @@
+﻿@model FalMedia.Areas.Admin.ViewModel.RoleViewModel
+
+@{
+    ViewBag.Title = Resources.AddRole;
+    ViewBag.ActiveTitle = Resources.AddRole;
+    ViewBag.LinkName = Resources.AddRole;
+    ViewBag.Action = "Create";
+    ViewBag.Controller = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+    ViewBag.Controller2 = Resources.Role;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div id="basic-form" class="section">
+        <div class="row">
+            <div class="col s12 m12 l6">
+                <div class="card-panel">
+                    <h4 class="header2">@Resources.AddRole</h4>
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    @Html.TextBoxFor(model => model.Name, new {required = "required"})
+                                    <label for="Name">@Resources.Name</label>
+                                    @Html.ValidationMessageFor(model => model.Name)
+                                </div>
+                                <div class="input-field col s12">
+                                    @Html.TextBoxFor(model => model.Description)
+                                    <label for="Description">@Resources.Description</label>
+                                    @Html.ValidationMessageFor(model => model.Description)
+                                </div>
+                            </div>
+                            <div class="input-field col s12" style="margin-bottom: 20px;">
+                                <input type="submit" value="@Resources.AddRole" class="btn btn-block green right"/>
+                                @Html.ActionLink("Back", "Index", null, new {@class = "btn btn-block blue"})
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

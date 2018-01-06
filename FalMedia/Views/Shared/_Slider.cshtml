@@ -1,0 +1,70 @@
+﻿<!-- Home Slider -->
+<section class="homeSlider clearfix">
+    <div class="slider fullscreen">
+        <ul class="slides">
+            @if (Culture.Equals("ar"))
+            {
+                if (ViewBag.sliderAr.Count.Equals(0))
+                {
+                    <li>
+                        <img src="#" alt="No Images">
+                        <div class="caption center-align">
+                            <h3>
+                                Nothing to see here yet!
+                            </h3>
+                            <h5 class="light grey-text text-lighten-3">
+                                Start by Uploading images in slider section.
+                            </h5>
+                        </div>
+                    </li>
+                }
+                foreach (var slid in ViewBag.sliderAr)
+                {
+                    <li>
+                        <img src="@Url.Content("~/uploads/slider/" + slid.Image)" alt="@slid.Image">
+                        <div class="caption @(slid.TageDir)-align">
+                            <h3>
+                                @slid.Tagline
+                            </h3>
+                            <h5 class="light grey-text text-lighten-3">
+                                @slid.Slogan
+                            </h5>
+                        </div>
+                    </li>
+                }
+            }
+            else
+            {
+                if (ViewBag.slider.Count.Equals(0))
+                {
+                    <li>
+                        <img src="#" alt="No Images">
+                        <div class="caption center-align">
+                            <h3>
+                                Nothing to see here yet!
+                            </h3>
+                            <h5 class="light grey-text text-lighten-3">
+                                Start by Uploading images in slider section.
+                            </h5>
+                        </div>
+                    </li>
+                }
+                foreach (var slid in ViewBag.slider)
+                {
+                    <li>
+                        <img src="@Url.Content("~/uploads/slider/" + slid.Image)" alt="@slid.Image">
+                        <div class="caption @(slid.TageDir)-align">
+                            <h3>
+                                @slid.Tagline
+                            </h3>
+                            <h5 class="light grey-text text-lighten-3">
+                                @slid.Slogan
+                            </h5>
+                        </div>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</section>
+<!-- End Slider -->

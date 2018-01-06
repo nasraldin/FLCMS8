@@ -1,0 +1,45 @@
+﻿@model FalMedia.Models.Contact
+
+
+@using (Html.BeginForm("Contact", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="input-field col s12">
+            <i class="material-icons prefix">account_circle</i>
+            @Html.EditorFor(model => model.Name, new {htmlAttributes = new {required = ""}})
+            @Html.Label(Resources.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+        <div class="input-field col s12">
+            <i class="material-icons prefix">stay_primary_portrait</i>
+            @Html.EditorFor(model => model.Mobile)
+            @Html.Label(Resources.Mobile)
+            @Html.ValidationMessageFor(model => model.Mobile)
+        </div>
+        <div class="input-field col s12">
+            <i class="material-icons prefix">email</i>
+            @Html.EditorFor(model => model.Email, new {htmlAttributes = new {required = ""}})
+            @Html.Label(Resources.EmailAddress)
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+        <div class="input-field col s12">
+            <i class="material-icons prefix">subtitles</i>
+            @Html.EditorFor(model => model.Subject)
+            @Html.Label(Resources.Subject)
+            @Html.ValidationMessageFor(model => model.Subject)
+        </div>
+        <div class="input-field col s12">
+            <i class="material-icons prefix">mode_edit</i>
+            @Html.EditorFor(model => model.Message, new {htmlAttributes = new {@class = "materialize-textarea"}})
+            @Html.Label(Resources.Message)
+            @Html.ValidationMessageFor(model => model.Message)
+        </div>
+        <div class="input-field col s11 push-l1">
+            <button class="btn waves-effect waves-light fullwidth" type="submit">
+                @Resources.Send
+                <i class="material-icons right">send</i>
+            </button>
+        </div>
+    </div>
+}

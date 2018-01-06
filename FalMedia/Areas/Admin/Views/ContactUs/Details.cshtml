@@ -1,0 +1,49 @@
+﻿@model FalMedia.Models.Contact
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "../Shared/_LayoutEdit.cshtml";
+}
+
+<div class="row">
+    <div class="col s4">
+        <h3 class="posthader">@Resources.ContactArrived</h3>
+    </div>
+    <div id="catEn" class="col s9">
+        <div class="row">
+            <div class="col s6">
+                <div class="">
+                    <div class="container">
+                        <div class="input-field col s12">
+                            @Html.EditorFor(model => model.Name, new {htmlAttributes = new {@readonly = ""}})
+                            @Html.LabelFor(model => model.Name)
+                        </div>
+                        <div class="input-field col s12">
+                            @Html.EditorFor(model => model.Mobile, new {htmlAttributes = new {@readonly = ""}})
+                            @Html.LabelFor(model => model.Mobile)
+                        </div>
+                        <div class="input-field col s12">
+                            @Html.EditorFor(model => model.Email, new {htmlAttributes = new {@readonly = ""}})
+                            @Html.LabelFor(model => model.Email)
+                        </div>
+                        <div class="input-field col s12">
+                            @Html.EditorFor(model => model.Company, new {htmlAttributes = new {@readonly = ""}})
+                            @Html.LabelFor(model => model.Company)
+                        </div>
+                        <div class="input-field col s12">
+                            @Html.EditorFor(model => model.Subject, new {htmlAttributes = new {@readonly = ""}})
+                            @Html.LabelFor(model => model.Subject)
+                        </div>
+                        <div class="input-field col s12">
+                            @Html.EditorFor(model => model.Message, new {htmlAttributes = new {@readonly = ""}})
+                            @Html.LabelFor(model => model.Message)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col s4">
+
+    </div>
+</div>

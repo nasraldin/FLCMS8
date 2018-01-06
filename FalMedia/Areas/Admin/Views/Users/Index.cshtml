@@ -1,0 +1,117 @@
+﻿@model IEnumerable<FalMedia.Areas.Admin.Models.User>
+@{
+    ViewBag.Title = Resources.AllUsers;
+    ViewBag.ActiveTitle = Resources.AllUsers;
+    ViewBag.LinkName = Resources.AddNew;
+    ViewBag.Action = "AddUser";
+    ViewBag.Controller = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+    ViewBag.Controller2 = Resources.Users;
+}
+
+<div class="row">
+    <div class="col s12">
+        <div class="card material-table">
+            <div class="table-header">
+                <span class="table-title">@Resources.AllUsers</span>
+                <div class="actions">
+                    <a href="#" class="search-toggle waves-effect btn-flat nopadding">
+                        <i class="material-icons">search</i>
+                    </a>
+                </div>
+            </div>
+            <table class="datatable">
+                <thead>
+                <tr>
+                    <th>@Resources.Username</th>
+                    <th>@Resources.Name</th>
+                    <th>@Resources.EmailAddress</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @{
+                                var userName = item.UserName;
+                                <span class="block">
+                                        @Html.ActionLink(userName, "Edit", new {id = item.Id})
+                                    </span>
+                                <div class="linkspost">
+                                    <span>
+                                            @Html.ActionLink("Details", "Details", new {id = item.Id}) <span>|</span>
+                                            <a href="#" class="js-delete-user" data-user-id="@item.Id">
+                                                Delete
+                                            </a>
+                                        </span>
+                                </div>
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DisplayName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/admin/DT.js"></script>
+    <script src="~/Scripts/admin/admin.init.js"></script>
+    <script>
+        $(document)
+            .ready(function() {
+                $(".js-delete-user")
+                    .click(function(e) {
+                        var link = $(e.target);
+
+                        swal({
+                                title: "Are you sure?",
+                                text: "You will not be able to recover this!",
+                                type: "warning",
+                                showCancelButton: true,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Yes, delete it!",
+                                cancelButtonText: "No, cancel please!",
+                                closeOnConfirm: false,
+                                closeOnCancel: false
+                            },
+                            function(isConfirm) {
+                                if (isConfirm) {
+                                    $.ajax({
+                                            url: "/Admin/Users/Delete/" + link.attr("data-user-id"),
+                                            method: "POST"
+                                        })
+                                        .done(function() {
+                                            swal("Deleted!", "user has been deleted.", "success");
+                                            link.parents("tr")
+                                                .fadeOut(function() {
+                                                    $(this).remove();
+                                                });
+                                        })
+                                        .fail(function() {
+                                            alert("Something failed!");
+                                        });
+                                } else {
+                                    swal("Cancelled", "user not deleted :)", "error");
+                                }
+                            });
+                    });
+            });
+    </script>
+    <script type="text/javascript">
+        $(document)
+            .ready(function() {
+                if ('@TempData["success"]' === "Your password has been changed") {
+                    Materialize.toast('@TempData["success"]', 4500);
+                }
+            });
+    </script>
+}

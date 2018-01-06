@@ -1,0 +1,89 @@
+﻿@model FalMedia.Areas.Admin.Models.User
+
+@{
+    ViewBag.Title = "_Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutEdit.cshtml";
+}
+
+<div class="row">
+    <div class="col s8" style="float: none; margin: 0 auto;">
+        <h3 class="posthader">User Info</h3>
+        <div class="card">
+            <div class="container">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <div class="row" style="text-align: center">
+                            @if (!Model.Thumbnail.IsEmpty())
+                            {
+                                <img src="@Url.Content("~/uploads/profile/" + Model.Thumbnail)" alt="User Profile Image" id="profile-user" class="circle responsive-img profile-user">
+                            }
+                            else
+                            {
+                                <img src="~/Content/img/No_Image_Available.png" alt="User Profile Image" id="profile-user" class="circle responsive-img profile-user">
+                            }
+                        </div>
+                    </div>
+                    <div class="input-field col s4">
+                        @Html.LabelFor(model => model.UserName)
+                        @Html.TextBoxFor(model => model.UserName, new {@class = "", disabled = ""})
+                        @Html.ValidationMessageFor(model => model.UserName)
+
+                    </div>
+                    <div class="input-field col s4">
+                        @Html.LabelFor(model => model.DisplayName)
+                        @Html.TextBoxFor(model => model.DisplayName, new {@class = "", disabled = ""})
+                        @Html.ValidationMessageFor(model => model.DisplayName)
+                    </div>
+                    <div class="input-field col s4">
+                        @Html.LabelFor(model => model.Position)
+                        @Html.TextBoxFor(model => model.Position, new {@class = "", disabled = ""})
+                        @Html.ValidationMessageFor(model => model.Position)
+                    </div>
+                    <div class="input-field col s12">
+                        @Html.LabelFor(model => model.Email)
+                        @Html.TextBoxFor(model => model.Email, new {@class = "", disabled = ""})
+                        @Html.ValidationMessageFor(model => model.Email)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        @Html.LabelFor(model => model.AboutMe)
+                        @Html.TextBoxFor(model => model.AboutMe, new {@class = "", disabled = ""})
+                        @Html.ValidationMessageFor(model => model.AboutMe)
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <fieldset class="fieldset">
+                            <legend>User Permission</legend>
+                            @if (ViewBag.GroupNames.Count == 0)
+                            {
+                                <p>No Groups found for this user.</p>
+                            }
+                            else
+                            {
+                                foreach (var item in ViewBag.GroupNames)
+                                {
+                                    <div class="switch">
+                                        @item :
+                                        <label style="position: inherit;">
+                                            <input type="checkbox" name="" checked="checked" disabled="disabled">
+                                            <span class="lever"></span> On
+                                        </label>
+                                    </div>
+                                    <br/>
+                                }
+                            }
+                        </fieldset>
+
+                    </div>
+                </div>
+                <div class="input-field col s12" style="margin-bottom: 20px;">
+                    @Html.ActionLink("Back", "Index", null, new {@class = "btn btn-block"})
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+﻿@{
+    ViewBag.Title = Culture.Equals("ar") ? ViewData["PosTitleAr"] : ViewData["PosTitle"];
+    Layout = "~/Views/Shared/_Page.cshtml";
+}
+
+@{
+    ViewBag.PostContent = ViewData["PosTContent"];
+}
+
+@Html.Raw(ViewBag.PostContent)

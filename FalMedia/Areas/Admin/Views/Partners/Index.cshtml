@@ -1,0 +1,92 @@
+﻿@model IEnumerable<FalMedia.Models.Partners>
+
+@{
+    ViewBag.Title = Resources.Partners;
+    ViewBag.ActiveTitle = Resources.Partners;
+    ViewBag.LinkName = Resources.AddNew;
+    ViewBag.Action = "Create";
+    ViewBag.Controller = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+    ViewBag.Controller2 = Resources.Partners;
+}
+
+<div class="row">
+    <div class="col s8">
+        <table id="slids" class="bordered ui-widget ui-widget-content">
+            <thead>
+            <tr class="ui-widget-header">
+                <th></th>
+                <th>@Html.DisplayNameFor(model => model.Image)</th>
+                <th>@Html.DisplayNameFor(model => model.IsFeatured)</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td></td>
+                    <td>
+                        <img src="@Url.Content("~/uploads/clints/" + item.Image)" alt="@item.Image" width="160">
+                    </td>
+                    <td>
+                        <div class="switch">
+                            <label style="position: inherit">
+                                <input type="checkbox" id="IsFeatured" name="IsFeatured" disabled="disabled" checked="@item.IsFeatured">
+                                <span class="lever"></span> On
+                            </label>
+                        </div>
+                    </td>
+                    <td>
+                        @Html.ActionLink(" ", "Edit", new {id = item.Id}, new {@class = "mdi-editor-border-color btn white-text"})
+                        <a href="#" class="js-delete-clint mdi-action-delete red btn white-text" data-clint-id="@item.Id"></a>
+                    </td>
+                </tr>
+            }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(document)
+            .ready(function() {
+                $(".js-delete-clint")
+                    .click(function(e) {
+                        var link = $(e.target);
+
+                        swal({
+                                title: "Are you sure?",
+                                text: "You will not be able to recover this!",
+                                type: "warning",
+                                showCancelButton: true,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Yes, delete it!",
+                                cancelButtonText: "No, cancel please!",
+                                closeOnConfirm: false,
+                                closeOnCancel: false
+                            },
+                            function(isConfirm) {
+                                if (isConfirm) {
+                                    $.ajax({
+                                            url: "/Admin/Partners/Delete/" + link.attr("data-clint-id"),
+                                            method: "POST"
+                                        })
+                                        .done(function() {
+                                            swal("Deleted!", "Partners has been deleted.", "success");
+                                            link.parents("tr")
+                                                .fadeOut(function() {
+                                                    $(this).remove();
+                                                });
+                                        })
+                                        .fail(function() {
+                                            alert("Something failed!");
+                                        });
+                                } else {
+                                    swal("Cancelled", "Partners not deleted :)", "error");
+                                }
+                            });
+                    });
+            });
+    </script>
+}

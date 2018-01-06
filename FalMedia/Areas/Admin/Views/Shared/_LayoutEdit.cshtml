@@ -1,0 +1,60 @@
+﻿@using FalMedia.Core
+<!DOCTYPE html>
+<html lang="@CultureHelper.GetCurrentNeutralCulture()">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - @Resources.Dashboard</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="~/Content/admin/materialize.css">
+    <!-- CORE CSS-->
+    <link href="~/Content/admin/prism.css" rel="stylesheet"/>
+    <link href="~/Content/admin/perfect-scrollbar.css" rel="stylesheet"/>
+    @RenderSection("Styles", false)
+    <link href="~/Content/admin/admin.css" rel="stylesheet"/>
+    <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+    <!--jquery-->
+    <script src="~/Scripts/admin/jquery-1.11.2.min.js"></script>
+</head>
+<body>
+@Html.Partial("_Header")
+<main id="main">
+    <!-- START WRAPPER -->
+    <div class="wrapper">
+        @Html.Partial("_Sidebar")
+        <!-- START CONTENT -->
+        <section id="content">
+            <!--start container-->
+            <div class="container">
+                <div class="section">
+                    @RenderBody()
+                </div>
+            </div>
+            <!--end container-->
+        </section>
+        <!-- END CONTENT -->
+    </div>
+    <!-- END WRAPPER -->
+</main>
+
+<!-- START FOOTER -->
+<footer class="page-footer blue-grey darken-4">
+    <div class="footer-copyright">
+        <div class="container">
+            <span>@Resources.Copyrights © 2016 <a class="grey-text text-lighten-4" href="" target="_blank">Fal Media</a> All rights reserved.</span>
+            <span class="right"> Design and Developed by <a class="grey-text text-lighten-4" href="">Fal Media</a></span>
+        </div>
+    </div>
+</footer>
+<!-- END FOOTER -->
+<!-- Scripts-->
+<script src="~/Scripts/admin/materialize.min.js"></script>
+<script src="~/Scripts/admin/prism.js"></script>
+<script src="~/Scripts/admin/perfect-scrollbar.min.js"></script>
+<script src="~/Scripts/admin/plugins.js"></script>
+@RenderSection("scripts", false)
+<!-- end Scripts-->
+</body>
+</html>

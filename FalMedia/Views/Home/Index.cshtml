@@ -1,0 +1,350 @@
+﻿@using FalMedia.Core
+@{
+    ViewBag.Title = Resources.Home;
+}
+
+@Html.Partial("_Slider")
+<!-- about -->
+<section id="about" class="about scrollspy">
+    <div class="container">
+        <div class="section">
+            <div class="row">
+                <div class="section-header col s12 m12 l12">
+                    <h2 class="headtitle wow slideInDown">
+                        @(Culture.Equals("ar") ? ViewData["aboutTitleAr"] : ViewData["aboutTitle"])
+                    </h2>
+
+                    <p class="center wow slideInLeft">
+                        @(Culture.Equals("ar") ? ViewData["aboutDescriptionAr"] : ViewData["aboutDescription"])
+                    </p>
+                </div>
+                <!-- items -->
+                @foreach (var aboutUs in ViewBag.Aboutus)
+                {
+                    if (Culture.Equals("ar"))
+                    {
+                        ViewBag.isright = "right";
+                    }
+                    <div class="@ViewBag.isright col s12 m3 l3 wow zoomIn">
+
+                        <div class="box-block">
+                            <span class="center brown-text">
+                            <i class="fa @(aboutUs.ShortDescription) fa-5x" aria-hidden="true" title="@(Culture.Equals("ar") ? aboutUs.TitleAr : aboutUs.Title)"></i>
+                        </span>
+                            <h5 class="center">
+                                @(Culture.Equals("ar") ? aboutUs.TitleAr : aboutUs.Title)
+                            </h5>
+
+                            <p class="@ViewBag.isright">
+                                @Html.Raw(Culture.Equals("ar") ? aboutUs.ContentAr : aboutUs.Content)
+                            </p>
+                        </div>
+                    </div>
+                }
+                <!-- end items -->
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End about -->
+<!-- Services -->
+<section id="services" class="services scrollspy">
+    <div class="container">
+        <div class="section">
+            <div class="row">
+                <div class="col s12 m12 l12">
+                    <div class="section-header wow zoomIn">
+                        <h2 class="headtitle">
+                            @(Culture.Equals("ar") ? ViewData["servTitleAr"] : ViewData["servTitle"])
+                        </h2>
+                        <p class="center-align">
+                            @(Culture.Equals("ar") ? ViewData["servicesDescriptionAr"] : ViewData["servicesDescription"])
+                        </p>
+                    </div>
+                </div>
+                <div class="serviceslist col s12 m12 l12">
+                    <!-- items -->
+                    @foreach (var services in ViewBag.Services)
+                    {
+                        if (Culture.Equals("ar"))
+                        {
+                            ViewBag.isright = "right";
+                        }
+                        <div class="box-item @ViewBag.isright col s12 m3 l3 wow slideInUp">
+                            <div class="box-block" id="serv-@services.Id">
+                                <span class="center box-icon">
+                                    <img src="@Url.Content("~/uploads/posts/" + services.Thumbnail)" alt="" />
+                                </span>
+                                <a href="@(CultureHelper.GetCurrentNeutralCulture() + "/p/v/" + services.Id)">
+                                    <h5 class="center">
+                                        @(Culture.Equals("ar") ? services.TitleAr : services.Title)
+                                    </h5>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                    <!-- end items -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Services -->
+<!-- Projects -->
+<section id="projects" class="projects scrollspy">
+    <div class="container">
+        <div class="section">
+            <div class="row">
+                <div class="col s12 m12 l12">
+                    <div class="section-header wow zoomIn">
+                        <h2 class="headtitle">
+                            @(Culture.Equals("ar") ? ViewData["projectsTitleAr"] : ViewData["projectsTitle"])
+                        </h2>
+                        <p class="center-align">
+                            @(Culture.Equals("ar") ? ViewData["projectsDescriptionAr"] : ViewData["projectsDescription"])
+                        </p>
+                    </div>
+                    @if (Culture.Equals("ar"))
+                    {
+                        <div class="div-tabs right">
+                            <ul id="filters" class="tabs clearfix">
+                                <li class="tab right">
+                                    <a class="filter" data-filter=".logo, .branding, .web, .media, .events, .digital, .execution, .gift">@Resources.All</a>
+                                </li>
+                                <li class="tab right">
+                                    <a class="filter" data-filter=".logo">@Resources.Logo</a>
+                                </li>
+                                <li class="tab right">
+                                    <a class="filter" data-filter=".branding">@Resources.Branding</a>
+                                </li>
+                                <li class="tab right">
+                                    <a class="filter" data-filter=".web">@Resources.Web</a>
+                                </li>
+                                <li class="tab right">
+                                    <a class="filter" data-filter=".digital">@Resources.Digital</a>
+                                </li>
+                                <li class="tab right">
+                                    <a class="filter" data-filter=".media">@Resources.Media</a>
+                                </li>
+                                <li class="tab right">
+                                    <a class="filter" data-filter=".events">@Resources.Events</a>
+                                </li>
+                                <li class="tab right">
+                                    <a class="filter" data-filter=".execution">@Resources.Execution</a>
+                                </li>
+                                <li class="tab right">
+                                    <a class="filter" data-filter=".gift">@Resources.Gift</a>
+                                </li>
+                            </ul>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="div-tabs">
+                            <ul id="filters" class="tabs clearfix">
+                                <li class="tab">
+                                    <a class="filter" data-filter=".logo, .branding, .web, .media, .events, .digital, .execution, .gift">@Resources.All</a>
+                                </li>
+                                <li class="tab">
+                                    <a class="filter" data-filter=".logo">@Resources.Logo</a>
+                                </li>
+                                <li class="tab">
+                                    <a class="filter" data-filter=".branding">@Resources.Branding</a>
+                                </li>
+                                <li class="tab">
+                                    <a class="filter" data-filter=".web">@Resources.Web</a>
+                                </li>
+                                <li class="tab">
+                                    <a class="filter" data-filter=".digital">@Resources.Digital</a>
+                                </li>
+                                <li class="tab">
+                                    <a class="filter" data-filter=".media">@Resources.Media</a>
+                                </li>
+                                <li class="tab">
+                                    <a class="filter" data-filter=".events">@Resources.Events</a>
+                                </li>
+                                <li class="tab">
+                                    <a class="filter" data-filter=".execution">@Resources.Execution</a>
+                                </li>
+                                <li class="tab">
+                                    <a class="filter" data-filter=".gift">@Resources.Gift</a>
+                                </li>
+                            </ul>
+                        </div>
+                    }
+
+                </div>
+
+                <div id="portfoliolist" class="col s12 m12 l12">
+                    <div class="row">
+                        <!-- items -->
+                        @foreach (var project in ViewBag.Projects)
+                        {
+                            <div class="portfolio @(project.ProjectType.Name) col s12 m4 l4 wow fadeInUp"
+                                 data-cat="@(project.ProjectType.Name)">
+                                <div class="card">
+                                    <div class="card-image waves-effect waves-block waves-light">
+                                        <a href="@(CultureHelper.GetCurrentNeutralCulture() + "/p/p/" + project.Id)">
+                                            <img class="activator responsive-img"
+                                                 src="@Url.Content("~/uploads/projects/" + project.Image)"
+                                                 alt="@project.Image">
+                                        </a>
+                                         
+                                    </div>
+                                    <div class="card-content">
+                                        <span class="card-title activator grey-text text-darken-4">
+                                        @(Culture.Equals("ar") ? project.TitleAr : project.Title)
+                                        <i class="material-icons right">more_vert</i>
+                                    </span>
+                                        <p>
+                                            <a href="@(CultureHelper.GetCurrentNeutralCulture() + "/p/p/" + project.Id)">@Resources.ReadMore</a>
+                                        </p>
+                                    </div>
+                                    @*<div class="card-reveal">
+                                        <span class="card-title grey-text text-darken-4">
+                                        @(Culture.Equals("ar") ? project.TitleAr : project.Title)
+                                        <i class="material-icons right">close</i>
+                                    </span>
+                                        <p>
+                                            @(Culture.Equals("ar") ? project.ShortDescriptionAr : project.ShortDescription)
+                                        </p>
+                                    </div>*@
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Projects -->
+<!-- Partners -->
+<section id="partners" class="partners scrollspy">
+    <div class="container">
+        <div class="section">
+            <div class="row">
+                <div class="section-header wow zoomIn">
+                    <h2 class="headtitle">
+                        @(Culture.Equals("ar") ? ViewData["partnersTitleAr"] : ViewData["partnersTitle"])
+                    </h2>
+                    <p class="center-align">
+                        @(Culture.Equals("ar") ? ViewData["partnersDescriptionAr"] : ViewData["partnersDescription"])
+                    </p>
+                </div>
+                <div class="col s12 m12 l12 partnerslist center">
+                    <div id="clints">
+                        @foreach (var partner in ViewBag.Partners)
+                        {
+                            <div class="item wow zoomIn">
+                                <img src="@Url.Content("~/uploads/clints/" + partner.Image)" alt="">
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Partners -->
+<!-- twitters -->
+<section id="twitters" class="twitters">
+    <div class="container">
+        <div class="section">
+            <div class="row">
+                <div class="col s12 m12 l12">
+                    <div class="row">
+                        <div class="col s12 m6">
+                            <div class="wow slideInLeft">
+                                <a class="twitter-timeline" data-width="600" data-height="490" href="https://twitter.com/falmediasa">Tweets by falmediasa</a>
+                                <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+                            </div>
+                        </div>
+                        <div class="col s12 m6">
+                            <div class="wow slideInRight widtf">
+                                <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Ffalmediasa%2Fposts%2F1876616082571237%3A0&width=350&show_text=false&height=350&appId" width="350" height="350" style="border: none; margin-top: 58px; overflow: hidden;" scrolling="no" allowTransparency="true"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End twitters -->
+<!-- Contact Us -->
+<section id="contact-us" class="contact-us scrollspy">
+    <div class="container">
+        <div class="section">
+            <div class="row">
+                <header class="section-header">
+                    <h2 class="headtitle">
+                        @(Culture.Equals("ar") ? ViewData["contactTitleAr"] : ViewData["contactTitle"])
+                    </h2>
+                    <p>
+                        @(Culture.Equals("ar") ? ViewData["contactDescriptionAr"] : ViewData["contactDescription"])
+                    </p>
+                </header>
+                <div class="row">
+                    <div class="col s12 m6 l6">
+                        <div class="row contact">
+                            <div class="col s12">
+                                @Html.Partial("_ContactUs")
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12 m6 l6 push-l2">
+                        <div class="info-contact-wrapper">
+                            <div class="contact-heading">
+                                <h2 class="">@Resources.Contactinformation</h2>
+                            </div>
+                            <div class="info-contact">
+                                <div class="col s12">
+                                    <p>
+                                        <i class="fa fa-map-marker"></i>
+                                        <span>@ViewBag.Address</span>
+                                    </p>
+                                    <p>
+                                        <i class="fa fa-phone"></i>
+                                        <span>@ViewBag.PhoneNumber</span>
+                                    </p>
+                                    <p>
+                                        <i class="fa fa-mobile"></i>
+                                        <span>@ViewBag.Mobile</span>
+                                    </p>
+                                    <p>
+                                        <i class="fa fa-envelope"></i>
+                                        <span>
+                                            <a href="mailto:@(ViewBag.EmailAddress)">
+                                                @ViewBag.EmailAddress
+                                            </a>
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Contact Us -->
+@Html.Partial("_GoogleMap")
+
+@section scripts{
+    @foreach (var services in ViewBag.Services)
+    {
+        <script>
+            $("#serv-@services.Id")
+                .hover(function() {
+                        $("#serv-@services.Id span img").attr("src", "../Content/img/@services.Thumbnail");
+                        $("#serv-@services.Id span img").addClass("animated bounce");
+                    },
+                    function() {
+                        $("#serv-@services.Id span img").attr("src", "/uploads/posts/@services.Thumbnail");
+                        $("#serv-@services.Id span img").removeClass("animated bounce");
+                    });
+        </script>
+    }
+}

@@ -1,0 +1,107 @@
+﻿@model IEnumerable<FalMedia.Models.Project>
+
+@{
+    ViewBag.Title = Resources.Projects;
+    ViewBag.ActiveTitle = Resources.OurProjects;
+    ViewBag.LinkName = Resources.AddNew;
+    ViewBag.Action = "NewProject";
+    ViewBag.Controller = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+    ViewBag.Controller2 = Resources.Projects;
+}
+
+<div class="row">
+    <div class="col s12">
+        <div class="card material-table">
+            <div class="table-header">
+                <span class="table-title">@Resources.Projects</span>
+                <div class="actions">
+                    <a href="#" class="search-toggle waves-effect btn-flat nopadding">
+                        <i class="material-icons">search</i>
+                    </a>
+                </div>
+            </div>
+            <table class="datatable">
+                <thead>
+                <tr>
+                    <th>@Resources.Title</th>
+                    <th>Image</th>
+                    <th>@Resources.Category</th>
+                    <th>@Resources.Description</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            <img src="@Url.Content("~/uploads/projects/" + item.Image)" alt="@item.Image" width="160">
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProjectType.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ShortDescription)
+                        </td>
+                        <td style="color: #fff;">
+                            @Html.ActionLink(" ", "EditProject", new {id = item.Id}, new {@class = "mdi-editor-border-color btn"})
+                            <a href="#" class="js-delete-project mdi-action-delete red btn" data-project-id="@item.Id"></a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/admin/DT.js"></script>
+    <script src="~/Scripts/admin/admin.init.js"></script>
+    <script>
+        $(document)
+            .ready(function() {
+                $(".js-delete-project")
+                    .click(function(e) {
+                        var link = $(e.target);
+
+                        swal({
+                                title: "Are you sure?",
+                                text: "You will not be able to recover this Project!",
+                                type: "warning",
+                                showCancelButton: true,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Yes, delete it!",
+                                cancelButtonText: "No, cancel plx!",
+                                closeOnConfirm: false,
+                                closeOnCancel: false
+                            },
+                            function(isConfirm) {
+                                if (isConfirm) {
+                                    $.ajax({
+                                            url: "/Admin/Projects/Delete/" + link.attr("data-project-id"),
+                                            method: "POST"
+                                        })
+                                        .done(function() {
+                                            swal("Deleted!", "Project has been deleted.", "success");
+                                            link.parents("tr")
+                                                .fadeOut(function() {
+                                                    $(this).remove();
+                                                });
+                                        })
+                                        .fail(function() {
+                                            alert("Something failed!");
+                                        });
+                                } else {
+                                    swal("Cancelled", "Project is safe :)", "error");
+                                }
+                            });
+                    });
+            });
+    </script>
+
+}

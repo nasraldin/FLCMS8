@@ -1,0 +1,101 @@
+﻿@model FalMedia.Models.Partners
+
+@{
+    ViewBag.Title = Resources.Partners;
+    ViewBag.ActiveTitle = Resources.Partners;
+    ViewBag.LinkName = Resources.AddNew;
+    ViewBag.Action = "Create";
+    ViewBag.Controller = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+    ViewBag.Controller2 = Resources.Partners;
+}
+@section Styles{
+    <style>
+        .select-wrapper { width: 120px; }
+    </style>
+}
+
+@using (Html.BeginForm("Edit", "Partners", FormMethod.Post, new {enctype = "multipart/form-data"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.Image)
+    <div id="basic-form" class="section">
+        <div class="row">
+            <div class="col s12 m8 l8">
+                <div class="card-panel">
+                    <h4 class="header2">@Resources.Partners</h4>
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="row">
+                                <div class="col s6">
+                                    @Html.ValidationSummary(true, "")
+                                    <div class="file-field input-field">
+                                        <div class="btn">
+                                            <span>File</span>
+                                            <input type="file" id="img" name="img" onchange="readURL(this);">
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text" value="@Model.Image">
+                                        </div>
+                                    </div>
+                                    <div class="input-field col s12">
+                                        <div class="switch">
+                                            IsFeatured :
+                                            <label style="position: inherit">
+                                                <input type="checkbox" id="IsFeatured"
+                                                       name="IsFeatured"
+                                                       value="true"
+                                                       checked="@Model.IsFeatured">
+                                                <span class="lever"></span> On
+                                            </label>
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.IsFeatured)
+                                    </div>
+                                </div>
+                                <div class="col s6">
+                                    <div class="row" style="text-align: center">
+                                        <img src="@Url.Content("~/uploads/clints/" + Model.Image)"
+                                             alt="Upload Slid Image" id="sild-img" height="200">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-field col s12" style="margin-bottom: 20px;">
+                                <input type="submit" value="@Resources.Update" class="btn btn-block green right"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#sild-img')
+                        .attr('src', e.target.result)
+                        .height(200)
+                        .removeClass('hidden');
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function readimgURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#sild-img')
+                        .attr('src', e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+}

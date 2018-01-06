@@ -1,0 +1,97 @@
+﻿@using FalMedia.Core
+<!DOCTYPE html>
+<html lang="@CultureHelper.GetCurrentNeutralCulture()">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - @Resources.Dashboard</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="~/Content/jquery-ui.min.css" rel="stylesheet"/>
+    @RenderSection("styles", false)
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="~/Content/admin/sweetalert.css"/>
+    <link rel="stylesheet" href="~/Content/admin/materialize.css">
+    <!-- CORE CSS-->
+    <link href="~/Content/admin/prism.css" rel="stylesheet"/>
+    <link href="~/Content/admin/perfect-scrollbar.css" rel="stylesheet"/>
+    <link href="~/Content/admin/admin.css" rel="stylesheet"/>
+    <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+    <!--jquery-->
+    <script src="~/Scripts/admin/jquery-2.1.4.js"></script>
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+</head>
+<body>
+@Html.Partial("_Header")
+<main id="main">
+    <!-- START WRAPPER -->
+    <div class="wrapper">
+        @Html.Partial("_Sidebar")
+        <!-- START CONTENT -->
+        <section id="content">
+            <!--breadcrumbs start-->
+            <div id="breadcrumbs-wrapper" class="grey lighten-3">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s12 m12 l12">
+                            <h5 class="breadcrumbs-title" style="display: inline-block; margin-right: 16px;">@ViewBag.Title</h5>
+                            @if (ViewBag.Controller == "Dashboard")
+                            {
+                                <ol class="breadcrumb">
+                                    <li>
+                                        <a href="@("/admin")">@Resources.Dashboard</a>
+                                    </li>
+                                </ol>
+                            }
+                            else
+                            {
+                                @Html.ActionLink((string) ViewBag.LinkName, (string) ViewBag.Action, (string) ViewBag.Controller, null, new {@class = "btn waves-effect waves-light"})
+                                <ol class="breadcrumb">
+                                    <li>
+                                        <a href="@("/admin")">@Resources.Dashboard</a>
+                                    </li>
+                                    <li>
+                                        <a href="@(ViewBag.Controller)">@ViewBag.Controller2</a>
+                                    </li>
+                                    <li class="active">@ViewBag.ActiveTitle</li>
+                                </ol>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--breadcrumbs end-->
+            <!--start container-->
+            <div class="container">
+                <div class="section">
+                    @RenderBody()
+                </div>
+            </div>
+            <!--end container-->
+        </section>
+        <!-- END CONTENT -->
+    </div>
+    <!-- END WRAPPER -->
+</main>
+
+<!-- START FOOTER -->
+<footer class="page-footer blue-grey darken-4">
+    <div class="footer-copyright">
+        <div class="container">
+            <span>@Resources.Copyrights © 2016 <a class="grey-text text-lighten-4" href="" target="_blank">Fal Media</a> All rights reserved.</span>
+            <span class="right"> Design and Developed by <a class="grey-text text-lighten-4" href="">Fal Media</a></span>
+        </div>
+    </div>
+</footer>
+<!-- END FOOTER -->
+<!-- Scripts-->
+<script src="~/Scripts/admin/materialize.min.js"></script>
+<script src="~/Scripts/admin/prism.js"></script>
+<script src="~/Scripts/admin/perfect-scrollbar.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/admin/sweetalert.min.js"></script>
+<script src="~/Scripts/admin/plugins.js"></script>
+@RenderSection("scripts", false)
+<!-- end Scripts-->
+</body>
+</html>

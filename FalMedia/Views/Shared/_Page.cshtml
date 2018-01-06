@@ -1,0 +1,116 @@
+﻿@using FalMedia.Core
+<!--
+* Project Name: Fal Media
+* Developer: nasr2ldin
+* Developer URL: http://nasraldin.com
+* Version: 1.0
+-->
+<!DOCTYPE html>
+<html lang="@CultureHelper.GetCurrentNeutralCulture()">
+<head>
+    <meta charset="utf-8"/>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <!--meta tag-->
+    <meta name="description" content="@ViewBag.Tagline"/>
+    <meta name="keywords" content="HTML5,CSS3,CodeZero"/>
+    <meta name="Author" content="FAL MEDIA [http://flamedia.sa]"/>
+    <title>@ViewBag.Title - @ViewBag.SiteTitle</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    <!--Import animate-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.1.0/css/hover-min.css" rel="stylesheet"/>
+    <!-- CORE styles css/main.css-->
+    @Styles.Render("~/Content/page")
+    <link rel="apple-touch-icon" sizes="57x57" href="~/Content/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="~/Content/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="~/Content/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="~/Content/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="~/Content/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="~/Content/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="~/Content/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="~/Content/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="~/Content/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="~/Content/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/Content/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="~/Content/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/Content/favicon/favicon-16x16.png">
+    <link rel="manifest" href="~/Content/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#2751a4">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#2751a4">
+    <!--jquery-->
+    <script src="~/Scripts/jquery-2.1.1.min.js"></script>
+    @Html.Raw(ViewBag.MetaTage)
+</head>
+<body>
+@Html.Partial("_Header")
+<!-- Main Content -->
+<main id="main" rol="main">
+    <header class="pageheader">
+        <div class="page-header">
+        </div>
+    </header>
+    <section class="section">
+        <div class="container">
+            <div class="content wow slideInUp">
+                @if (Culture.Equals("ar"))
+                {
+                    <div class="post-head">
+                        <h1 style="font-size: 3rem;" class="right-align">
+                            <span>
+                                <i class="fa fa-file-text right"></i>
+                            </span>
+                            @(Culture.Equals("ar") ? ViewData["PosTitleAr"] : ViewData["PosTitle"])
+                        </h1>
+                    </div>
+                    <div class="post-content" style="text-align: right;">
+                        @RenderBody()
+                    </div>
+                }
+                else
+                {
+                    <div class="post-head">
+                        <h1 style="font-size: 3rem;">
+                            <span>
+                                <i class="fa fa-file-text"></i>
+                            </span>
+                            @(Culture.Equals("ar") ? ViewData["PosTitleAr"] : ViewData["PosTitle"])
+                        </h1>
+                    </div>
+                    <div class="post-content">
+                        @RenderBody()
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+</main>
+<!-- End Main Content -->
+@Html.Partial("_SocialMediaLinks")
+@Html.Partial("_ModalPopup")
+@Html.Partial("_Footer")
+<!-- Scripts-->
+<script src="~/Scripts/materialize.min.js"></script>
+<script src="~/Scripts/wow.min.js"></script>
+<script src="~/Scripts/page.js"></script>
+<script type="text/javascript">
+    (function($) {
+        $("input[type='radio']")
+            .click(function() {
+                $(this).parents("form").submit();
+            });
+    })(jQuery);
+</script>
+<!-- end Scripts-->
+</body><!-- end body-->
+</html><!-- end html-->
+<!--
+Copyright 2016 FAL MEDIA. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://falmedia.sa/license
+-->

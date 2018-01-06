@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Fal Media Dashboard</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="~/Content/admin/materialize.css">
+    <!-- CORE CSS-->
+    <link href="~/Content/admin/admin.css" rel="stylesheet"/>
+    <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
+    <!--jquery-->
+    <script src="~/Scripts/admin/jquery-1.11.2.min.js"></script>
+</head>
+<body>
+<div class="login-cover">
+    <div id="login-page" class="row">
+        <div class="col s12 z-depth-4 card-panel">
+            <div class="login-form">
+                <div class="row">
+                    <div class="input-field col s12 center">
+                        <a href="@("/")">
+                            <img src="~/Content/img/falmedia-logo.svg" alt="" class="responsive-img valign profile-image-login">
+                        </a>
+                    </div>
+                </div>
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Scripts-->
+<script src="~/Scripts/admin/materialize.min.js"></script>
+@RenderSection("scripts", false)
+<!-- end Scripts-->
+</body>
+</html>

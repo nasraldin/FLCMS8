@@ -1,0 +1,31 @@
+//base css
+@font-face {
+    font-family: theSans;
+    src: url(../fonts/thesans/TheSans-Plain.otf), url(../fonts/thesans/TheSansArab-Light9.ttf) format('truetype'),
+        url(../fonts/thesans/TheSansArab-Black2.ttf) format('truetype'), url(../fonts/thesans/TheSansArab-Bold8.ttf) format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+body{
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    @include margin-size(0);
+    @include padding-size(0);
+    overflow-x: hidden;
+    color: $flatblack;
+    background-color: transparent;
+    font-family: theSans;
+    font-size: 100%;
+    -webkit-font-smoothing: antialiased;
+    line-height:1.5;
+}
+body a{
+    text-decoration: none;
+    &:hover{
+        text-decoration:none;
+    }
+}
+*, :after, :before {
+    box-sizing: border-box;
+}

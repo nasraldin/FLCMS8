@@ -1,0 +1,149 @@
+﻿@model FalMedia.Areas.Admin.Models.Settings
+
+@{
+    ViewBag.Title = Resources.GeneralSettings;
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutEdit.cshtml";
+}
+
+@helper Selected(string lang, string culture)
+{
+    if (lang == culture)
+    {
+        @:checked="checked"
+    }
+}
+
+<h3>@Resources.GeneralSettings</h3>
+@using (Html.BeginForm("UpdateSettings", "Settings", FormMethod.Post, new {enctype = "multipart/form-data"}))
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col s12">
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.SiteLogo)
+            <div class="row">
+                <div class="input-field col s12">
+                    <span class="col s2 titsetting">@Html.DisplayNameFor(model => model.SiteTitle)</span>
+                    <span class="col s3">
+                        @Html.EditorFor(model => model.SiteTitle, new {htmlAttributes = new {required = "required"}})
+                        @Html.ValidationMessageFor(model => model.SiteTitle, "", new {@class = "redarken1"})
+                    </span>
+                </div>
+                <div class="input-field col s12 text-info">
+                    <span class="col s2 titsetting">@Html.DisplayNameFor(model => model.Tagline)</span>
+                    <span class="col s3">
+                        @Html.EditorFor(model => model.Tagline)
+                        @Html.ValidationMessageFor(model => model.Tagline, "", new {@class = "redarken1"})
+                    </span>
+                </div>
+                <div class="input-field col s12">
+                    <span class="col s2 titsetting">@Html.DisplayNameFor(model => model.SiteLogo)</span>
+                    <span class="col s3">
+                        <img src="@Url.Content("~/uploads/logo/" + Model.SiteLogo)" alt="site logo" id="logo-img">
+                        <input type="file" id="logo" name="logo" onchange="readURL(this);" />
+                        @Html.ValidationMessageFor(model => model.SiteLogo, "", new {@class = "redarken1"})
+                    </span>
+                </div>
+                <div class="input-field col s12">
+                    <span class="col s2 titsetting">@Html.DisplayNameFor(model => model.EmailAddress)</span>
+                    <span class="col s3">
+                        @Html.EditorFor(model => model.EmailAddress)
+                        @Html.ValidationMessageFor(model => model.EmailAddress, "", new {@class = "redarken1"})
+                    </span>
+                </div>
+                <div class="input-field col s12">
+                    <span class="col s2 titsetting">@Html.DisplayNameFor(model => model.Address)</span>
+                    <span class="col s3">
+                        @Html.EditorFor(model => model.Address)
+                        @Html.ValidationMessageFor(model => model.Address, "", new {@class = "redarken1"})
+                    </span>
+                </div>
+                <div class="input-field col s12">
+                    <span class="col s2 titsetting">@Html.DisplayNameFor(model => model.Mobile)</span>
+                    <span class="col s3">
+                        @Html.EditorFor(model => model.Mobile)
+                        @Html.ValidationMessageFor(model => model.Mobile, "", new {@class = "redarken1"})
+                    </span>
+                </div>
+                <div class="input-field col s12">
+                    <span class="col s2 titsetting">@Html.DisplayNameFor(model => model.PhoneNumber)</span>
+                    <span class="col s3">
+                        @Html.EditorFor(model => model.PhoneNumber)
+                        @Html.ValidationMessageFor(model => model.PhoneNumber, "", new {@class = "redarken1"})
+                    </span>
+                </div>
+                <div class="input-field col s12">
+                    <span class="col s2 titsetting">@Resources.ChooseYourLanguage</span>
+                    <div class="col s3">
+                        <p>
+                            <input class="with-gap" name="SiteLanguage"
+                                   type="radio" id="en-us" value="en-us" @Selected("en-us", Model.SiteLanguage)/>
+                            <label for="en-us">English</label>
+                        </p>
+                        <p>
+                            <input class="with-gap" name="SiteLanguage"
+                                   type="radio" id="ar" value="ar" @Selected("ar", Model.SiteLanguage)/>
+                            <label for="ar">العربية</label>
+                        </p>
+
+                    </div>
+                </div>
+                <div class="input-field col s12">
+                    <span class="col s2 titsetting">@Html.DisplayNameFor(model => model.GoogleMap)</span>
+                    <span class="col s3">
+                        @Html.EditorFor(model => model.GoogleMap)
+                        @Html.ValidationMessageFor(model => model.GoogleMap, "", new {@class = "redarken1"})
+                    </span>
+                </div>
+                <div class="input-field col s12">
+                    <span class="col s2 titsetting">@Html.DisplayNameFor(model => model.MetaTage)</span>
+                    <span class="col s3">
+                        @Html.TextAreaFor(model => model.MetaTage, new {@class = "materialize-textarea"})
+                        @Html.ValidationMessageFor(model => model.MetaTage, "", new {@class = "redarken1"})
+                    </span>
+                </div>
+                <div class="input-field col s5">
+                    <button type="submit" class="btn btn-block green right">@Resources.Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document)
+            .ready(function() {
+                if ('@TempData["success"]' === "Update successfully Settings") {
+                    Materialize.toast('@TempData["success"]', 4500);
+                }
+            });
+    </script>
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#logo-img')
+                        .attr('src', e.target.result)
+                        .height(90)
+                        .removeClass('hidden');
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function readimgURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#logo-img')
+                        .attr('src', e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+}

@@ -1,0 +1,29 @@
+﻿body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    color: #000;
+    background-color: transparent;
+    font-size: 100%;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+}
+
+body a {
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+*, :after, :before {
+    box-sizing: border-box;
+}
+
+header, main, footer {
+    padding-left: 300px;
+}

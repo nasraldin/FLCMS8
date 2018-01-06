@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = Culture.Equals("ar") ? ViewData["PosTitleAr"] : ViewData["PosTitle"];
+    Layout = "~/Views/Shared/_Page.cshtml";
+}
+
+@{
+    ViewBag.PostContent = Culture.Equals("ar") ? ViewData["PosTContentAr"] : ViewData["PosTContent"];
+}
+@if (ViewData["PosThumbnail"] != null)
+{
+    <img src="@Url.Content("~/uploads/posts/" + ViewData["PosThumbnail"])" alt="@ViewData["PosThumbnail"]" style="max-width: 50%;"/>
+}
+@Html.Raw(ViewBag.PostContent)

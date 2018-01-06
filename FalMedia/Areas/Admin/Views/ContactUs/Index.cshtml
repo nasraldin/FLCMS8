@@ -1,0 +1,107 @@
+﻿@model IEnumerable<FalMedia.Models.Contact>
+
+@{
+    ViewBag.Title = Resources.ContactUs;
+    ViewBag.ActiveTitle = Resources.Message;
+    ViewBag.LinkName = Resources.AddNew;
+    ViewBag.Action = "Index";
+    ViewBag.Controller = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+    ViewBag.Controller2 = Resources.ContactUs;
+}
+
+<div class="row">
+    <div class="col s12">
+        <div class="card material-table">
+            <div class="table-header">
+                <span class="table-title">@Resources.ContactUs</span>
+                <div class="actions">
+                    <a href="#" class="search-toggle waves-effect btn-flat nopadding">
+                        <i class="material-icons">search</i>
+                    </a>
+                </div>
+            </div>
+            <table class="datatable">
+                <thead>
+                <tr>
+                    <th>@Resources.Name</th>
+                    <th>@Resources.EmailAddress</th>
+                    <th>@Resources.Mobile</th>
+                    <th>@Resources.CreatedDate</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Mobile)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedDate)
+                        </td>
+                        <td style="color: #fff;">
+                            @Html.ActionLink(" ", "Details", new {id = item.Id}, new {@class = "mdi-action-pageview btn green"})
+                            <a href="#" class="js-delete-Cnt mdi-action-delete red btn white-text" data-Cnt-id="@item.Id">
+                            </a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/admin/DT.js"></script>
+    <script src="~/Scripts/admin/admin.init.js"></script>
+    <script>
+        $(document)
+            .ready(function() {
+                $(".js-delete-Cnt")
+                    .click(function(e) {
+                        var link = $(e.target);
+
+                        swal({
+                                title: "Are you sure?",
+                                text: "You will not be able to recover this imaginary file!",
+                                type: "warning",
+                                showCancelButton: true,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Yes, delete it!",
+                                cancelButtonText: "No, cancel plx!",
+                                closeOnConfirm: false,
+                                closeOnCancel: false
+                            },
+                            function(isConfirm) {
+                                if (isConfirm) {
+                                    $.ajax({
+                                            url: "/Admin/ContactUs/Delete/" + link.attr("data-Cnt-id"),
+                                            method: "POST"
+                                        })
+                                        .done(function() {
+                                            swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                                            link.parents("tr")
+                                                .fadeOut(function() {
+                                                    $(this).remove();
+                                                });
+                                        })
+                                        .fail(function() {
+                                            alert("Something failed!");
+                                        });
+                                } else {
+                                    swal("Cancelled", "Your imaginary file is safe :)", "error");
+                                }
+                            });
+                    });
+            });
+    </script>
+}

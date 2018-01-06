@@ -1,0 +1,18 @@
+.login-cover {
+    background-image: url(../img/slider/2.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: block;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    width: 100vw;
+}
+
+#login-page {
+    left: 40%;
+    margin: 0 auto;
+    position: fixed;
+    top: 15%;
+}

@@ -1,0 +1,132 @@
+﻿@model IEnumerable<FalMedia.Models.Category>
+
+@{
+    ViewBag.Title = Resources.AllCategories;
+    ViewBag.ActiveTitle = Resources.AllCategories;
+    ViewBag.LinkName = Resources.AddNew;
+    ViewBag.Action = "Create";
+    ViewBag.Controller = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+    ViewBag.Controller2 = Resources.Categories;
+}
+
+<div class="row">
+    <div class="col s12">
+        <div class="card material-table">
+            <div class="table-header">
+                <span class="table-title">@Resources.AllCategories</span>
+                <div class="actions">
+                    <a href="#" class="search-toggle waves-effect btn-flat nopadding">
+                        <i class="material-icons">search</i>
+                    </a>
+                </div>
+            </div>
+            <table class="datatable">
+                <thead>
+                <tr>
+                    <th>@Resources.Id</th>
+                    <th>@Resources.Name</th>
+                    <th>@Resources.Description</th>
+                    <th>@Resources.CreatedDate</th>
+                    <th>@Resources.CreatedBy</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @if (Culture.Equals("ar"))
+                            {
+                                var name = item.NameAr;
+                                <span class="block">
+                                        @(name == null ? Html.ActionLink(" ", "Edit", new {id = item.Id}) : Html.ActionLink(name, "Edit", new {id = item.Id}))
+                                    </span>
+                                <div class="linkspost">
+                                    <span>
+                                            <a href="#" class="js-delete-Category" data-user-id="@item.Id">
+                                                Delete
+                                            </a>
+                                        </span>
+                                </div>
+                            }
+                            else
+                            {
+                                var name = item.Name;
+                                <span class="block">
+                                        @(name == null ? Html.ActionLink(" ", "Edit", new {id = item.Id}) : Html.ActionLink(name, "Edit", new {id = item.Id}))
+                                    </span>
+                                <div class="linkspost">
+                                    <span>
+                                            <a href="#" class="js-delete-Category" data-category-id="@item.Id">
+                                                Delete
+                                            </a>
+                                        </span>
+                                </div>
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedBy)
+                        </td>
+                    </tr>
+                }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/admin/DT.js"></script>
+    <script src="~/Scripts/admin/admin.init.js"></script>
+    <script>
+        $(document)
+            .ready(function() {
+                $(".js-delete-Category")
+                    .click(function(e) {
+                        var link = $(e.target);
+
+                        swal({
+                                title: "Are you sure?",
+                                text: "You will not be able to recover this imaginary file!",
+                                type: "warning",
+                                showCancelButton: true,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Yes, delete it!",
+                                cancelButtonText: "No, cancel plx!",
+                                closeOnConfirm: false,
+                                closeOnCancel: false
+                            },
+                            function(isConfirm) {
+                                if (isConfirm) {
+                                    $.ajax({
+                                            url: "/Admin/Categories/Delete/" + link.attr("data-category-id"),
+                                            method: "POST"
+                                        })
+                                        .done(function() {
+                                            swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                                            link.parents("tr")
+                                                .fadeOut(function() {
+                                                    $(this).remove();
+                                                });
+                                        })
+                                        .fail(function() {
+                                            alert("Something failed!");
+                                        });
+                                } else {
+                                    swal("Cancelled", "Your imaginary file is safe :)", "error");
+                                }
+                            });
+                    });
+            });
+    </script>
+}

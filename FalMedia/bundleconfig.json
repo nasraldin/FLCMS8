@@ -1,0 +1,8 @@
+[
+  {
+    "outputFileName": "Content/admin/admin.min.css",
+    "inputFiles": [
+      "Content/admin/admin.css"
+    ]
+  }
+]

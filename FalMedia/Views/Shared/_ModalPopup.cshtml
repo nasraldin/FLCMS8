@@ -1,0 +1,173 @@
+﻿@using System.Threading
+@model FalMedia.Models.Contact
+
+<!-- Modal popup quote -->
+<div id="modal_quote" class="modal">
+    @using (Html.BeginForm("Contact", "Home", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="modal-content" style="padding-bottom: 0">
+            <div class="center">
+                <h4>@Resources.Moadltitle</h4>
+                <p class="center-align">
+                    @Resources.MoadlP
+                </p>
+            </div>
+            <div class="row" style="margin-bottom: 0">
+                <div class="col s12">
+                    <div class="col s12 m6">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">account_circle</i>
+                                @Html.EditorFor(model => model.Name, new {htmlAttributes = new {required = "", placeholder = Resources.Name}})
+                                @Html.ValidationMessageFor(model => model.Name)
+                            </div>
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">phone</i>
+                                @Html.EditorFor(model => model.Mobile, new {htmlAttributes = new {placeholder = Resources.Mobile}})
+                                @Html.ValidationMessageFor(model => model.Mobile)
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col s12 m6">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">store</i>
+                                @Html.EditorFor(model => model.Company, new {htmlAttributes = new {placeholder = Resources.Company}})
+                                @Html.ValidationMessageFor(model => model.Company)
+                            </div>
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">email</i>
+                                @Html.EditorFor(model => model.Email, new {htmlAttributes = new {required = "", placeholder = Resources.EmailAddress}})
+                                @Html.ValidationMessageFor(model => model.Email)
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="input-field col s12 padd23">
+                        <i class="material-icons prefix">mode_edit</i>
+                        <textarea id="Message" name="Message" class="materialize-textarea" placeholder=@Resources.Message></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="row" style="margin-bottom: 0">
+                <div class="col s12 m6">
+                    <p>
+                        <i class="fa fa-phone"></i>
+                        <span>@ViewBag.PhoneNumber</span>
+                        <i class="fa fa-mobile"></i>
+                        <span>@ViewBag.Mobile</span>
+                        <i class="fa fa-envelope"></i>
+                        <span><a href="mailto:@(ViewBag.EmailAddress)">@ViewBag.EmailAddress</a></span>
+                    </p>
+                </div>
+                <div class="col s12 m6">
+                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn red">
+                        <i class="material-icons left">close</i>
+                        @Resources.Close
+                    </a>
+                    <button class="btn waves-effect waves-light blue" type="submit">
+                        @Resources.Send
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
+</div><!-- End Modal quote -->
+<!-- Modal popup -->
+<div id="modal_popup" class="modal" style="width: 680px;">
+    @using (Html.BeginForm("Contact", "Home", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="modal-content">
+            <h4>@Resources.KeepinTouch</h4>
+            <div class="row">
+                <div class="col s6">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">account_circle</i>
+                            @Html.EditorFor(model => model.Name, new {htmlAttributes = new {required = "", placeholder = Resources.Name}})
+                            @Html.ValidationMessageFor(model => model.Name)
+                        </div>
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">stay_primary_portrait</i>
+                            @Html.EditorFor(model => model.Mobile, new {htmlAttributes = new {placeholder = Resources.Mobile}})
+                            @Html.ValidationMessageFor(model => model.Mobile)
+                        </div>
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">email</i>
+                            @Html.EditorFor(model => model.Email, new {htmlAttributes = new {required = "", placeholder = Resources.EmailAddress}})
+                            @Html.ValidationMessageFor(model => model.Email)
+                        </div>
+                    </div>
+                </div>
+                <div class="col s6">
+                    <div class="imgrawp">
+                        <img src="~/Content/img/support.svg" class="circle" alt="Keep in Touch"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn red">
+                <i class="material-icons left">close</i>
+                @Resources.Close
+            </a>
+            <button class="btn waves-effect waves-light blue" type="submit">
+                @Resources.Send
+                <i class="material-icons right">send</i>
+            </button>
+        </div>
+    }
+</div><!-- End Modal -->
+
+<!-- #region culture -->
+@{
+    var culture = Thread.CurrentThread.CurrentUICulture.Name.ToLowerInvariant();
+}
+@helper Selected(string c, string culture)
+{
+    if (c == culture)
+    {
+        @:checked="checked"
+    }
+}
+<!-- #endregion -->
+
+<!-- Modal popup -->
+<div id="chlang" class="modal" style="overflow: hidden; width: 330px;">
+    <div class="modal-content">
+        <div class="row">
+            <div class="col s6" style="float: none; margin: 0 auto;">
+                <div class="row" style="margin: 0; padding: 0; text-align: center;">
+                    @using (Html.BeginForm("SetCulture", "Home"))
+                    {
+                        <fieldset>
+                            <legend>@Resources.ChooseYourLanguage</legend>
+                            <p>
+                                <input class="with-gap" name="culture" type="radio" id="en-us" value="en-us" @Selected("en-us", culture)/>
+                                <label for="en-us" class="black-text">English</label>
+                            </p>
+                            <p>
+                                <input class="with-gap" name="culture" type="radio" id="ar" value="ar" @Selected("ar", culture)/>
+                                <label for="ar" class="black-text">العربية</label>
+                            </p>
+                        </fieldset>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn blue">
+            @Resources.Close
+            <i class="material-icons left">close</i>
+        </a>
+    </div>
+</div><!-- End Modal -->

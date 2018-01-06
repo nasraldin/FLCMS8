@@ -1,0 +1,498 @@
+﻿
+/* #Mobile */
+@media only screen and (min-device-width: 320px) and (max-device-width: 736px) and (max-device-width: 768px) and (-webkit-min-device-pixel-ratio: 2) {
+    #loader-wrapper {
+        #loader {
+            top: 60% !important;
+            left: 50% !important;
+        }
+
+        img {
+            width: 260px;
+            left: 10% !important;
+        }
+    }
+
+    header {
+        .navbar-fixed {
+            nav {
+                .nav-wrapper {
+                    .primary-nav-inner {
+                        .brand-logo {
+                            left: 80px !important;
+                        }
+                    }
+
+                    #mobile-demo {
+
+                        li {
+                            &:first-child {
+                                margin-top: 13px;
+                            }
+
+                            a {
+                                padding: 0 32px !important;
+                                height: 50px !important;
+                                font-size: 1.6rem !important;
+
+                                i {
+                                    line-height: 40px !important;
+                                    height: unset !important;
+                                    margin-right: 16px !important;
+                                    font-size: 2.2rem !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .about, .services, .projects, .partners, .twitters, .contact-us {
+        height: auto !important;
+    }
+
+    .about {
+        .about-h {
+            padding: 0 !important;
+        }
+    }
+
+    .services {
+        .serviceslist {
+            display: block;
+            align-content: center;
+            align-items: center;
+
+            .box-item {
+                margin: 0 !important;
+                margin-bottom: 30px !important;
+                width: 100% !important;
+                min-height: 177px !important;
+
+                .box1, .box2 {
+                    width: 100% !important;
+                    min-height: 340px !important;
+                }
+            }
+        }
+    }
+
+    .projects {
+        background-color: white;
+
+        #portfoliolist {
+            .portfolio {
+                .card {
+                    margin: 1rem 0 2rem 0 !important;
+                }
+            }
+        }
+    }
+
+    .partners {
+        .partnerslist {
+            padding: 0 !important;
+
+            #clints {
+                .item {
+                    width: 100% !important;
+                }
+            }
+        }
+    }
+
+    .contact-us {
+        .contact {
+            padding-left: 30px !important;
+
+            .push-l1 {
+                margin-left: 9% !important;
+            }
+        }
+
+        .info-contact-wrapper {
+            padding-left: 10% !important;
+        }
+    }
+
+    footer .cz-footer-copyright .container {
+        width: 90% !important;
+
+        .cz-fc-disp {
+            float: none !important;
+        }
+    }
+
+    .social-sidebar .social {
+        top: auto !important;
+        bottom: 30px !important;
+    }
+
+    .twitters {
+        .widtf {
+            iframe {
+                width: 330px !important;
+            }
+        }
+    }
+
+    #modal_popup {
+        width: 96% !important;
+    }
+
+    #modal_quote {
+        .modal-footer {
+            p {
+                display: block !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 4px 15px !important;
+            }
+        }
+    }
+
+    .hvr-underline-from-center::before,
+    .hvr-sweep-to-right::before {
+        background: none;
+    }
+}
+
+/* Landscape */
+@media only screen and (min-device-width: 320px) and (max-device-width: 736px) and (max-device-width: 768px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+    header {
+        .navbar-fixed {
+            nav {
+                .nav-wrapper {
+                    .primary-nav-inner {
+                        .brand-logo {
+                            left: 200px !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .homeSlider {
+        .type-div {
+            width: 65% !important;
+            top: 50% !important;
+            left: 22% !important;
+        }
+    }
+
+    .about {
+        .about-h {
+            p {
+                padding: 0 !important;
+                padding-left: 15px !important;
+            }
+        }
+
+        .box-block p {
+            padding: 0 !important;
+        }
+    }
+
+
+    .services {
+        .serviceslist {
+            display: block;
+            align-content: center;
+            align-items: center;
+
+            .box-item {
+                margin: 0 !important;
+                margin-bottom: 30px !important;
+                width: 50% !important;
+                min-height: 260px !important;
+
+                .box1, .box2 {
+                    width: 100% !important;
+                    min-height: 274px !important;
+                }
+
+                .box-front {
+                    .box1 {
+                        .box-info {
+                            h2 {
+                                font-size: 1.5rem !important;
+                            }
+                        }
+                    }
+                }
+
+                .box-back {
+                    .box2 {
+                        font-size: 1rem;
+                    }
+                }
+            }
+        }
+    }
+
+    .projects {
+        background-color: white;
+
+        #portfoliolist {
+            .portfolio {
+                width: 49% !important;
+            }
+        }
+    }
+
+    .partners {
+        .partnerslist {
+            padding: 0 !important;
+
+            #clints {
+                .item {
+                    width: 45% !important;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-device-width: 768px) and (max-width: 992px) and (-webkit-min-device-pixel-ratio: 2) {
+    header {
+        .navbar-fixed {
+            nav {
+                .nav-wrapper {
+
+                    #mobile-demo {
+
+                        li {
+                            &:first-child {
+                                margin-top: 13px;
+                            }
+
+                            a {
+                                padding: 0 32px !important;
+                                height: 50px !important;
+                                font-size: 1.6rem !important;
+
+                                i {
+                                    line-height: 40px !important;
+                                    height: unset !important;
+                                    margin-right: 16px !important;
+                                    font-size: 2.2rem !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .homeSlider {
+        .intro-vedio {
+            video {
+                height: 100vh !important;
+                object-fit: cover;
+            }
+        }
+
+        .type-div {
+            width: 70% !important;
+            top: 30% !important;
+            left: 16% !important;
+        }
+    }
+
+    .about, .services, .projects, .partners, .twitters, .contact-us {
+        height: auto !important;
+
+        .hr-wd {
+            width: 39% !important;
+        }
+    }
+
+    .about {
+        .about-h {
+            p {
+                padding: 0 !important;
+                text-align: left !important;
+            }
+        }
+
+        .box-block p {
+            padding: 0 !important;
+        }
+    }
+
+    .services {
+        .serviceslist {
+            display: block;
+            align-content: center;
+            align-items: center;
+
+            .box-item {
+                margin: 0 !important;
+                margin-bottom: 30px !important;
+                width: 50% !important;
+                min-height: 320px !important;
+
+                .box1, .box2 {
+                    width: 100% !important;
+                    min-height: 320px !important;
+                }
+
+                .box-front {
+                    .box1 {
+                        .box-info {
+                            h2 {
+                                font-size: 1.5rem !important;
+                                margin-top: 30px !important;
+                            }
+                        }
+                    }
+                }
+
+                .box-back {
+                    .box2 {
+                        font-size: 1.3rem;
+                    }
+                }
+            }
+        }
+    }
+
+    .projects {
+        background-color: white;
+
+        #portfoliolist {
+            .portfolio {
+                width: 49% !important;
+            }
+        }
+    }
+
+    .partners {
+        .partnerslist {
+            padding: 0 !important;
+
+            #clints {
+                .item {
+                    width: 45% !important;
+                }
+            }
+        }
+    }
+
+    .contact-us {
+        .container {
+            width: 100% !important;
+        }
+
+        .contact {
+            padding-left: 30px !important;
+
+            .push-l1 {
+                margin-left: 10% !important;
+            }
+        }
+
+        .info-contact-wrapper {
+            padding-left: 3% !important;
+        }
+    }
+
+    footer .cz-footer-copyright .container {
+        width: 90% !important;
+
+        .cz-fc-disp {
+            float: none !important;
+        }
+    }
+
+    #modal_popup {
+        width: 96% !important;
+    }
+
+    #modal_quote {
+        .modal-footer {
+            p {
+                display: block !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 4px 15px !important;
+            }
+        }
+    }
+
+    .hvr-underline-from-center::before,
+    .hvr-sweep-to-right::before {
+        background: none;
+    }
+}
+/*  #Tablet */
+@media only screen and (min-width: 1024px) {
+    #loader-wrapper img {
+        top: -24px !important;
+    }
+
+    header {
+        .navbar-fixed {
+            nav {
+                .nav-wrapper {
+                    .primary-nav-inner {
+                        .right > li > a {
+                            padding: 0 8px !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .about {
+        .container {
+            width: 90% !important;
+        }
+
+        .about-h {
+            p {
+                //text-align: left !important;
+                font-size: 1.2rem !important;
+                padding: 0 !important;
+                padding-left: 15px !important;
+            }
+        }
+
+        .box-block p {
+            font-size: 1.1rem !important;
+            padding: 0 !important;
+        }
+    }
+
+    .projects {
+        background-color: white;
+    }
+
+    #modal_quote {
+        .modal-footer {
+            p {
+                display: inline-block !important;
+                width: 600px !important;
+                margin: 0 !important;
+                padding: 4px 90px !important;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .about, .services, .projects, .partners {
+        height: 100vh;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    nav .brand-logo {
+        left: 35% !important;
+    }
+}

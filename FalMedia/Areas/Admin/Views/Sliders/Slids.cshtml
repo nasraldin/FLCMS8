@@ -1,0 +1,32 @@
+﻿@model IEnumerable<FalMedia.Models.Slids>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
+        <td>
+            <img src="@Url.Content("~/uploads/slider/" + item.Image)" alt="@item.Image" width="100">
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tagline)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Slogan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TageDir)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedBy)
+        </td>
+        <td>
+            @Html.ActionLink(" ", "EditSlid", new {id = item.Id}, new {@class = "mdi-editor-border-color btn white-text"})
+            <a href="#" class="js-delete-slid mdi-action-delete red btn white-text" data-slid-id="@item.Id"></a>
+        </td>
+    </tr>
+}
